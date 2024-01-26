@@ -1,3 +1,17 @@
 {
-	"name": "GGJ2024"
+    "name": "GGJ2024",
+    "rootNamespace": "GGJ2024",
+    "references": [
+        "Unity.InputSystem",
+        "UnityToolkit.Engine"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
