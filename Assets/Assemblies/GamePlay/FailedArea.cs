@@ -8,7 +8,7 @@ namespace GGJ2024
     {
         [field: SerializeField] public PlayerEnum playerEnum { get; private set; }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.gameObject.TryGetComponent(out Player player)) return;
             if (playerEnum == player.playerEnum)
@@ -16,5 +16,19 @@ namespace GGJ2024
                 Debug.Log($"Player {playerEnum} failed!");
             }
         }
+
+        private void OnValidate()
+        {
+            GetComponent<Collider2D>().isTrigger = true;
+        }
+
+        // private void OnCollisionEnter2D(Collision2D other)
+        // {
+        //     if (!other.gameObject.TryGetComponent(out Player player)) return;
+        //     if (playerEnum == player.playerEnum)
+        //     {
+        //         Debug.Log($"Player {playerEnum} failed!");
+        //     }
+        // }
     }
 }
