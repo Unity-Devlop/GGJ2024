@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08d1bbb5269e564888808c9b81b583c, type: 3}
   m_Name: UIPanelDatabase
   m_EditorClassIdentifier: 
-  _panels: []
+  _panels:
+  - {fileID: 4933824183384893699, guid: 5e49ba0e833bfb44dacece0bb49221f0, type: 3}
