@@ -28,7 +28,7 @@ namespace GGJ2024
                     {
                         Vector2 moveInput = (mousePos - transform.position).normalized;
                         Debug.DrawLine(transform.position, transform.position + (Vector3)moveInput, Color.red);
-                        Debug.Log(moveInput);
+                        // Debug.Log(moveInput);
                         return moveInput;
                     }
 

@@ -4,7 +4,8 @@
     "references": [
         "Unity.InputSystem",
         "UnityToolkit.Engine",
-        "Unity.Mathematics"
+        "Unity.Mathematics",
+        "EasySave3"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

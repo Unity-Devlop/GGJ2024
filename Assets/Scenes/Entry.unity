@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_UpdateMethod
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6433842375718295934, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8754931811061686471, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
       propertyPath: m_Name
       value: Globals

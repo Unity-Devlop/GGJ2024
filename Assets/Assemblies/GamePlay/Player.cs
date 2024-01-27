@@ -1,18 +1,9 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 namespace GGJ2024
 {
-    public enum PlayerEnum
-    {
-        P1,
-        P2
-    }
-
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
@@ -24,17 +15,11 @@ namespace GGJ2024
 
         // todo 配置文件
         [field: SerializeField] public PlayerEnum playerEnum { get; private set; } = PlayerEnum.P1;
-        
-        public float moveForce = 10f;
-        public float facingLerpTime = 0.1f;
-        public float maxVelocityX = 10f;
-        public float maxVelocityY = 10f;
 
-        public float noseOutSpeed = 10f;
-        public float noseInSpeed = 10f;
-        
-        public float maxNoseLength = 10f;
+        [field: SerializeField, Sirenix.OdinInspector.ReadOnly]
+        private PlayerState _state = PlayerState.Normal;
 
+        [field: SerializeField] public PlayerConfig config { get; private set; }
 
         // todo state param
         private bool _isAttacking = false;
@@ -66,36 +51,56 @@ namespace GGJ2024
             else
             {
                 Vector2 moveInput = InputManager.Singleton.ReadMoveInput(playerEnum);
-                _rb2D.AddForce(moveForce * moveInput);
+                _rb2D.AddForce(config.moveForce * moveInput);
 
 
                 // 同时让鼻子朝向慢慢的和移动方向一致
                 if (moveInput.magnitude > 0.1f)
                 {
-                    float moveRotation = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg;
-                    transform.rotation =
-                        Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, moveRotation), facingLerpTime);
+                    LerpFacing(Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg);
                 }
             }
+        }
+
+        private void LerpFacing(float targetRotation)
+        {
+            float lerpTime;
+            if (_isAttacking)
+            {
+                // Debug.Log($"Attacking Lerp {config.attackingFacingLerpTime}");
+                lerpTime = config.attackingFacingLerpTime;
+            }
+            else
+            {
+                lerpTime = config.normalFacingLerpTime;
+            }
+
+            transform.rotation =
+                Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, targetRotation), lerpTime);
         }
 
         private void LimitSpeed()
         {
             Vector2 abs = math.abs(_rb2D.velocity);
 
-            if (abs.x > maxVelocityX)
+            if (abs.x > config.maxVelocityX)
             {
                 // Debug.Log("maxVelocityX");
                 int direction = _rb2D.velocity.x > 0 ? 1 : -1;
-                _rb2D.velocity = new Vector2(maxVelocityX * direction, _rb2D.velocity.y);
+                _rb2D.velocity = new Vector2(config.maxVelocityX * direction, _rb2D.velocity.y);
             }
 
-            if (abs.y > maxVelocityY)
+            if (abs.y > config.maxVelocityY)
             {
                 // Debug.Log("maxVelocityY");
                 int direction = _rb2D.velocity.y > 0 ? 1 : -1;
-                _rb2D.velocity = new Vector2(_rb2D.velocity.x, maxVelocityY * direction);
+                _rb2D.velocity = new Vector2(_rb2D.velocity.x, config.maxVelocityY * direction);
             }
+        }
+
+        public void SetConfig(PlayerConfig config)
+        {
+            this.config = config;
         }
 
         public void Attack()
@@ -103,10 +108,10 @@ namespace GGJ2024
             _isAttacking = true;
             _nose.StartAttack();
             float distance = Vector3.Distance(_noseOrigin.localPosition, _noseDestination.localPosition);
-            float outDuration = distance / noseOutSpeed;
-            float inDuration = distance / noseInSpeed;
+            float outDuration = distance / config.noseOutSpeed;
+            float inDuration = distance / config.noseInSpeed;
             Transform noseTransform = _nose.transform;
-            
+
             noseTransform.DOLocalMove(_noseDestination.localPosition, outDuration).OnComplete(() =>
             {
                 noseTransform.DOLocalMove(_noseOrigin.localPosition, inDuration)
@@ -117,25 +122,23 @@ namespace GGJ2024
                     });
             });
         }
-
+#if UNITY_EDITOR
         private void OnValidate()
         {
             _noseDestination = transform.Find("NoseDestination");
             _noseOrigin = transform.Find("NoseOrigin");
-            
-            _noseDestination.localPosition = _noseOrigin.localPosition + Vector3.right * maxNoseLength;
+
+            _noseDestination.localPosition = _noseOrigin.localPosition + Vector3.right * config.maxNoseLength;
         }
 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.black;
             Gizmos.DrawLine(_noseOrigin.position, _noseDestination.position);
-            
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_noseOrigin.position, 0.1f);
             Gizmos.color = Color.green;
+            _noseDestination = transform.Find("NoseDestination");
             Gizmos.DrawWireSphere(_noseDestination.position, 0.1f);
-            
         }
+#endif
     }
 }

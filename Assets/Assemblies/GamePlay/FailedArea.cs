@@ -13,7 +13,7 @@ namespace GGJ2024
             if (!other.gameObject.TryGetComponent(out Player player)) return;
             if (playerEnum == player.playerEnum)
             {
-                Debug.Log($"Player {playerEnum} failed!");
+                GameManager.Singleton.PlayerFailed(playerEnum);
             }
         }
 

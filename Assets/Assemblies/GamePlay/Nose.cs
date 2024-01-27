@@ -11,7 +11,7 @@ namespace GGJ2024
         private Player _player;
         private CircleCollider2D _collider2D;
         private bool _attacking;
-        public float force = 10f;
+        public float force => _player.config.noseForce;
 
         private readonly HashSet<Collider2D> _filter = new HashSet<Collider2D>();
 
@@ -19,6 +19,7 @@ namespace GGJ2024
         {
             _player = GetComponentInParent<Player>();
             _collider2D = GetComponent<CircleCollider2D>();
+            _collider2D.enabled = false;
         }
 
         private void Update()
@@ -61,7 +62,7 @@ namespace GGJ2024
                 // 如果鼻子打到鼻子
                 if (hit.TryGetComponent(out Nose nose) && nose != this)
                 {
-                    Debug.Log("Hit Nose");
+                    // Debug.Log("Hit Nose");
                     _filter.Add(hit);
                     continue;
                 }
@@ -71,11 +72,13 @@ namespace GGJ2024
         public void StartAttack()
         {
             _attacking = true;
+            _collider2D.enabled = true;
             _filter.Clear();
         }
         public void CancelAttack()
         {
             _attacking = false;
+            _collider2D.enabled = false;
             _filter.Clear();
         }
     }
