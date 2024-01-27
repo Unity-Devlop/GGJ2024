@@ -121,11 +121,11 @@ namespace GGJ2024
             target.transform.position = spawnPoint;
         }
 
-#if UNITY_EDITOR
-        public void OnValidate()
-        {
-            JsonManager.SaveJsonToStreamingAssets("Config/GameConfig.json", config);
-        }
-#endif
+// #if UNITY_EDITOR
+//         public void OnValidate()
+//         {
+//             JsonManager.SaveJsonToStreamingAssets("Config/GameConfig.json", config);
+//         }
+// #endif
     }
 }

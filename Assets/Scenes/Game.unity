@@ -2298,7 +2298,7 @@ MonoBehaviour:
       friction: 0.1
       bounce: 0.1
     stopVelocity: 0.3
-  hitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 1555726172980609578, guid: 2857eb14191b9cf40a8099a5b55f5428, type: 3}
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ namespace GGJ2024
         private AudioSource _global;
         public AudioClip gameBGM;
 
+        public GameObject audioPrefab;
+
         protected override bool DontDestroyOnLoad() => true;
 
 
@@ -26,6 +28,14 @@ namespace GGJ2024
         public void StopGameBGM()
         {
             _global.Stop();
+        }
+
+        public void Play(AudioClip clip,Vector3 position,Quaternion quaternion)
+        {
+            GameObject audio = Instantiate(audioPrefab, position, quaternion);
+            audio.GetComponent<AudioSource>().clip = clip;
+            audio.GetComponent<AudioSource>().Play();
+            Destroy(audio, clip.length);
         }
     }
 }

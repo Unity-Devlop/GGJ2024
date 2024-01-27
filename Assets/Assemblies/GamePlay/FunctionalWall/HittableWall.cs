@@ -12,7 +12,6 @@ namespace GGJ2024
         public int MaxhitCount = 3;
        
         public GameObject shower;
-        private GameObject audioPrefab;
         public AudioClip clip;
 
        
@@ -34,7 +33,6 @@ namespace GGJ2024
             {
                 spriteStack.Push(sprites[i]);
             }
-            audioPrefab = Resources.Load<GameObject>("Prefabs/Sound");
             
             SpriteRenderer rd = shower.GetComponent<SpriteRenderer>();
 
@@ -107,11 +105,7 @@ namespace GGJ2024
         }
 
         private void OnhitPlay() {
-            GameObject audioPlayer = Instantiate(audioPrefab, transform.position, Quaternion.identity);
-            AudioSource audioSource = audioPlayer.GetComponent<AudioSource>();
-            audioSource.clip = clip;
-            audioSource.Play();
-
+            AudioManager.Singleton.Play(clip, transform.position, Quaternion.identity);
         }
         
     }

@@ -73,7 +73,7 @@ namespace GGJ2024
                 curAnimHash != Global.playerMoveAnim)
             {
                 // 如果当前动画不是 move 则切换到 move
-                Debug.Log($"{playerEnum}:Move");
+                // Debug.Log($"{playerEnum}:Move");
                 _animator.SetBool(Global.playerIdleAnim, false);
                 _animator.SetBool(Global.playerMoveAnim, true); // 速度够大则 move
             }
@@ -89,6 +89,7 @@ namespace GGJ2024
 
         private void OnCollisionEnter2D(Collision2D other)
         {
+            // todo 自己攻击时要不要闭眼睛
             if (other.collider.CompareTag("Player"))
             {
                 _animator.SetTrigger(Global.playerHitAnim);
@@ -186,6 +187,7 @@ namespace GGJ2024
         {
             // todo 攻击特效
             GameObject.Instantiate(GameManager.Singleton.hitEffectPrefab, pos, Quaternion.identity);
+            // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
             _rb2D.AddForce(force, ForceMode2D.Impulse);
         }
     }

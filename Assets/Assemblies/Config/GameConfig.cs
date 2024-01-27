@@ -9,5 +9,7 @@ namespace GGJ2024
         public PlayerConfig p2Config;
 
         public float stopVelocity = 0.3f;
+        
+        
     }
 }
