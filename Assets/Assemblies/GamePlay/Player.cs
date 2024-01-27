@@ -15,6 +15,8 @@ namespace GGJ2024
         private Nose _nose;
 
         private SpriteRenderer _body;
+        private SpriteRenderer _noseVisual;
+        private SpriteRenderer _eyeVisual;
 
         private Animator _animator;
 
@@ -34,6 +36,8 @@ namespace GGJ2024
             _rb2D = GetComponent<Rigidbody2D>();
             _nose = transform.Find("Nose").GetComponent<Nose>();
             _body = transform.Find("Body").GetComponent<SpriteRenderer>();
+            _noseVisual = transform.Find("Nose/Visual").GetComponent<SpriteRenderer>();
+            _eyeVisual = transform.Find("Eye").GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
 
             RuntimeAnimatorController controller;
@@ -168,21 +172,33 @@ namespace GGJ2024
             Color origin = _body.color;
             Color newColor = origin;
             newColor.a = 0.5f;
+            
             _body.color = newColor;
+            _eyeVisual.color = newColor;
+            _noseVisual.color = newColor;
+            
             // todo 闪烁以表示无敌
             Timer.Register(config.invincibleTime, () =>
             {
                 _state = PlayerState.Normal;
                 _body.color = origin;
+                _eyeVisual.color = origin;
+                _noseVisual.color = origin;
+                
             }, onUpdate: f =>
             {
                 if (f % 0.2f < 0.1f)
                 {
                     _body.color = origin;
+                    _eyeVisual.color = origin;
+                    _noseVisual.color = origin;
+                    
                 }
                 else
                 {
                     _body.color = newColor;
+                    _eyeVisual.color = newColor;
+                    _noseVisual.color = newColor;
                 }
             });
         }
