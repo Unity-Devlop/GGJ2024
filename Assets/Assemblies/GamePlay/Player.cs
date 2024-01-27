@@ -20,7 +20,6 @@ namespace GGJ2024
         private Transform _noseOrigin;
         private Transform _noseDestination;
 
-        private GGJ2024Input _input;
 
         // todo 配置文件
         [field: SerializeField] public PlayerEnum playerEnum { get; private set; } = PlayerEnum.P1;
@@ -41,54 +40,24 @@ namespace GGJ2024
             _nose = transform.Find("Nose").GetComponent<Nose>();
             _noseOrigin = transform.Find("NoseOrigin");
             _noseDestination = transform.Find("NoseDestination");
-            _input = new GGJ2024Input();
-            _input.Enable();
-        }
-
-        public Vector2 ReadMoveInput(PlayerEnum playerEnum)
-        {
-            switch (playerEnum)
-            {
-                case PlayerEnum.P1:
-                    return _input.Player1.Move.ReadValue<Vector2>();
-                case PlayerEnum.P2:
-                    Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
-                    Vector3 mousePos = GlobalManager.ScreenToWorldPoint(mouseScreenPos);
-                    if (Mouse.current.leftButton.isPressed)
-                    {
-                        return (mousePos - transform.position).normalized;
-                    }
-
-                    return Vector2.zero;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        public bool WasNodePerformThisFrame(PlayerEnum playerEnum)
-        {
-            switch (playerEnum)
-            {
-                case PlayerEnum.P1:
-                    return _input.Player1.Nose.WasPerformedThisFrame();
-                case PlayerEnum.P2:
-                    return Mouse.current.rightButton.wasPressedThisFrame;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
 
 
         private void Update()
         {
-            if (WasNodePerformThisFrame(playerEnum) && !_isAttacking)
+            if (GameManager.Singleton.gameState != GameState.Playing)
+            {
+                return;
+            }
+
+            if (InputManager.Singleton.WasNosePerformThisFrame(playerEnum) && !_isAttacking)
             {
                 // todo 改成按住就伸长鼻子?
                 Attack();
             }
             else
             {
-                Vector2 moveInput = ReadMoveInput(playerEnum);
+                Vector2 moveInput = InputManager.Singleton.ReadMoveInput(playerEnum);
                 _rb2D.AddForce(moveForce * moveInput);
                 if (_rb2D.velocity.x > maxVelocityX)
                 {

@@ -184,6 +184,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Global",
+            "id": "daeb66b2-f315-43aa-9e5f-efb13ee2772a",
+            "actions": [
+                {
+                    "name": "Esc",
+                    "type": "Button",
+                    "id": "e955fc5c-7ebf-4cb3-9789-e08716efee7f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8e009cc9-f059-42e8-a5b4-a1a539b9e48e",
+                    "path": "<Keyboard>/{Cancel}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Esc",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

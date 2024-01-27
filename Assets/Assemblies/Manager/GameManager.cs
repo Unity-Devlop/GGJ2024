@@ -1,4 +1,6 @@
-﻿using UnityToolkit;
+﻿using System;
+using UnityEngine;
+using UnityToolkit;
 
 namespace GGJ2024
 {
@@ -6,6 +8,7 @@ namespace GGJ2024
     {
         Playing,
         Waiting,
+        Pause,
         GameOver
     }
     public class GameManager : MonoSingleton<GameManager>
@@ -15,6 +18,28 @@ namespace GGJ2024
         {
             // debug
             GameStart();
+        }
+
+        private void Update()
+        {
+            if (InputManager.Singleton.input.Global.Esc.WasPerformedThisFrame() && gameState == GameState.Playing)
+            {
+                Pause();
+            }
+        }
+        
+        public void Resume()
+        {
+            UIRoot.Singleton.ClosePanel<GamePausePanel>();
+            gameState = GameState.Playing;
+            Time.timeScale = 1;
+        }
+
+        public void Pause()
+        {
+            UIRoot.Singleton.OpenPanel<GamePausePanel>();
+            gameState = GameState.Pause;
+            Time.timeScale = 0;
         }
 
         public void GameStart()

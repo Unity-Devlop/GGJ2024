@@ -208,6 +208,34 @@ namespace GGJ2024
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Global"",
+            ""id"": ""daeb66b2-f315-43aa-9e5f-efb13ee2772a"",
+            ""actions"": [
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""e955fc5c-7ebf-4cb3-9789-e08716efee7f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8e009cc9-f059-42e8-a5b4-a1a539b9e48e"",
+                    ""path"": ""<Keyboard>/{Cancel}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -220,6 +248,9 @@ namespace GGJ2024
             m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
             m_Player2_Move = m_Player2.FindAction("Move", throwIfNotFound: true);
             m_Player2_Nose = m_Player2.FindAction("Nose", throwIfNotFound: true);
+            // Global
+            m_Global = asset.FindActionMap("Global", throwIfNotFound: true);
+            m_Global_Esc = m_Global.FindAction("Esc", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -385,6 +416,52 @@ namespace GGJ2024
             }
         }
         public Player2Actions @Player2 => new Player2Actions(this);
+
+        // Global
+        private readonly InputActionMap m_Global;
+        private List<IGlobalActions> m_GlobalActionsCallbackInterfaces = new List<IGlobalActions>();
+        private readonly InputAction m_Global_Esc;
+        public struct GlobalActions
+        {
+            private @GGJ2024Input m_Wrapper;
+            public GlobalActions(@GGJ2024Input wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Esc => m_Wrapper.m_Global_Esc;
+            public InputActionMap Get() { return m_Wrapper.m_Global; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(GlobalActions set) { return set.Get(); }
+            public void AddCallbacks(IGlobalActions instance)
+            {
+                if (instance == null || m_Wrapper.m_GlobalActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_GlobalActionsCallbackInterfaces.Add(instance);
+                @Esc.started += instance.OnEsc;
+                @Esc.performed += instance.OnEsc;
+                @Esc.canceled += instance.OnEsc;
+            }
+
+            private void UnregisterCallbacks(IGlobalActions instance)
+            {
+                @Esc.started -= instance.OnEsc;
+                @Esc.performed -= instance.OnEsc;
+                @Esc.canceled -= instance.OnEsc;
+            }
+
+            public void RemoveCallbacks(IGlobalActions instance)
+            {
+                if (m_Wrapper.m_GlobalActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IGlobalActions instance)
+            {
+                foreach (var item in m_Wrapper.m_GlobalActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_GlobalActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public GlobalActions @Global => new GlobalActions(this);
         public interface IPlayer1Actions
         {
             void OnMove(InputAction.CallbackContext context);
@@ -394,6 +471,10 @@ namespace GGJ2024
         {
             void OnMove(InputAction.CallbackContext context);
             void OnNose(InputAction.CallbackContext context);
+        }
+        public interface IGlobalActions
+        {
+            void OnEsc(InputAction.CallbackContext context);
         }
     }
 }
