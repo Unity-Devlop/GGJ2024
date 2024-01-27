@@ -2270,13 +2270,13 @@ MonoBehaviour:
   <p2>k__BackingField: {fileID: 1280169806}
   <config>k__BackingField:
     p1Config:
-      moveForce: 10
+      moveForce: 4.5
       normalFacingLerpTime: 0.1
       attackingFacingLerpTime: 0.03
       health: 3
       invincibleTime: 1
-      maxVelocityX: 10
-      maxVelocityY: 10
+      maxVelocityX: 6.5
+      maxVelocityY: 6.5
       noseOutSpeed: 10
       noseInSpeed: 10
       maxNoseLength: 3
@@ -2284,13 +2284,13 @@ MonoBehaviour:
       friction: 0.1
       bounce: 0.1
     p2Config:
-      moveForce: 10
+      moveForce: 4.5
       normalFacingLerpTime: 0.1
       attackingFacingLerpTime: 0.03
       health: 3
       invincibleTime: 1
-      maxVelocityX: 10
-      maxVelocityY: 10
+      maxVelocityX: 6.5
+      maxVelocityY: 6.5
       noseOutSpeed: 10
       noseInSpeed: 10
       maxNoseLength: 3
