@@ -554,11 +554,13 @@ MonoBehaviour:
   <p2SpawnPoint>k__BackingField: {fileID: 711074160}
   <p1>k__BackingField: {fileID: 1148325903}
   <p2>k__BackingField: {fileID: 1254334495}
-  config:
+  <config>k__BackingField:
     p1Config:
       moveForce: 10
       normalFacingLerpTime: 0.1
       attackingFacingLerpTime: 0.03
+      health: 3
+      invincibleTime: 1
       maxVelocityX: 10
       maxVelocityY: 10
       noseOutSpeed: 10
@@ -571,6 +573,8 @@ MonoBehaviour:
       moveForce: 10
       normalFacingLerpTime: 0.1
       attackingFacingLerpTime: 0.03
+      health: 3
+      invincibleTime: 1
       maxVelocityX: 10
       maxVelocityY: 10
       noseOutSpeed: 10
@@ -982,7 +986,11 @@ PrefabInstance:
     - target: {fileID: 86563354176056026, guid: c322152ef50cbb24f9c0b78890f44c67, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 6200000, guid: cda4412edb24d304daca06134e90781c, type: 2}
+      objectReference: {fileID: 0}
+    - target: {fileID: 1113346157538454023, guid: c322152ef50cbb24f9c0b78890f44c67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1113346157538454023, guid: c322152ef50cbb24f9c0b78890f44c67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

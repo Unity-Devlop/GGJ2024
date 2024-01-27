@@ -18,5 +18,6 @@
     {
         Normal,
         Invincible,
+        Attacking
     }
 }

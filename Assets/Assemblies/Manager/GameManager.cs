@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityToolkit;
 
 namespace GGJ2024
@@ -13,7 +14,7 @@ namespace GGJ2024
         [field: SerializeField] public Player p1 { get; private set; }
         [field: SerializeField] public Player p2 { get; private set; }
 
-        public GameConfig config;
+        [field: SerializeField] public GameConfig config { get; private set; }
 
         protected override void OnInit()
         {
@@ -23,13 +24,6 @@ namespace GGJ2024
             GameStart();
         }
 
-
-#if UNITY_EDITOR
-        public void OnValidate()
-        {
-            JsonManager.SaveJsonToStreamingAssets("Config/GameConfig.json", config);
-        }
-#endif
         private void Update()
         {
             if (InputManager.Singleton.input.Global.Esc.WasPerformedThisFrame() && gameState == GameState.Playing)
@@ -65,27 +59,29 @@ namespace GGJ2024
 
         private void SpawnPlayer(PlayerEnum playerEnum)
         {
-            Player target = null;
-            PlayerConfig playerConfig = null;
+            GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
+            target.SetConfig(playerConfig);
+        }
+
+        private void GetPlayer(PlayerEnum playerEnum, out Player player, out PlayerConfig playerConfig)
+        {
             switch (playerEnum)
             {
                 case PlayerEnum.P1:
                     // target = Instantiate(playerPrefab, p1SpawnPoint.position, Quaternion.identity)
                     //     .GetComponent<Player>();
-                    target = p1;
+                    player = p1;
                     playerConfig = config.p1Config;
                     break;
                 case PlayerEnum.P2:
                     // target = Instantiate(playerPrefab, p2SpawnPoint.position, Quaternion.identity)
                     //     .GetComponent<Player>();
-                    target = p2;
+                    player = p2;
                     playerConfig = config.p2Config;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(playerEnum), playerEnum, null);
             }
-
-            target.SetConfig(playerConfig);
         }
 
         // [Sirenix.OdinInspector.Button]
@@ -93,12 +89,41 @@ namespace GGJ2024
         {
             AudioManager.Singleton.StopGameBGM();
             gameState = GameState.GameOver;
-
+            // 
             GlobalManager.Singleton.ToHome();
         }
 
         public void PlayerFailed(PlayerEnum playerEnum)
         {
+            GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
+            if (target.currentHealth.Value <= 0)
+            {
+                GameOver();
+                return;
+            }
+            target.currentHealth.Value--;
+            target.SetInvincible();
+            Vector3 spawnPoint;
+            switch (playerEnum)
+            {
+                case PlayerEnum.P1:
+                    spawnPoint = p1SpawnPoint.position;
+                    break;
+                case PlayerEnum.P2:
+                    spawnPoint = p2SpawnPoint.position;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(playerEnum), playerEnum, null);
+            }
+
+            target.transform.position = spawnPoint;
         }
+
+#if UNITY_EDITOR
+        public void OnValidate()
+        {
+            JsonManager.SaveJsonToStreamingAssets("Config/GameConfig.json", config);
+        }
+#endif
     }
 }
