@@ -22,7 +22,7 @@ namespace GGJ2024
 
         protected override void OnInit()
         {
-            // 从持久化路径中读取配置文件
+            // 从持久化路径中读取配置文件 todo
             // config = JsonManager.LoadJsonFromStreamingAssets<GameConfig>("Config/GameConfig.json");
             // debug
             GameStart();
@@ -59,6 +59,9 @@ namespace GGJ2024
             SpawnPlayer(PlayerEnum.P2);
 
             gameState = GameState.Playing;
+
+            UIRoot.Singleton.CloseAll();
+            UIRoot.Singleton.OpenPanel<GamePanel>();
         }
 
         private void SpawnPlayer(PlayerEnum playerEnum)
@@ -93,7 +96,8 @@ namespace GGJ2024
         {
             AudioManager.Singleton.StopGameBGM();
             gameState = GameState.GameOver;
-
+            
+            UIRoot.Singleton.CloseAll();
             UIRoot.Singleton.OpenPanel<GameOverPanel>();
         }
 
@@ -101,7 +105,8 @@ namespace GGJ2024
         {
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
 
-            AudioManager.Singleton.Play(globalConfig.playerDeadClip, target.transform.position, target.transform.rotation);
+            AudioManager.Singleton.Play(globalConfig.playerDeadClip, target.transform.position,
+                target.transform.rotation);
 
             target.gameObject.SetActive(false); // todo
 
@@ -130,7 +135,8 @@ namespace GGJ2024
                 target.gameObject.SetActive(true);
                 target.SetInvincible();
                 target.transform.position = spawnPoint;
-                AudioManager.Singleton.Play(globalConfig.playerBirthClip, target.transform.position, target.transform.rotation);
+                AudioManager.Singleton.Play(globalConfig.playerBirthClip, target.transform.position,
+                    target.transform.rotation);
             });
         }
 
