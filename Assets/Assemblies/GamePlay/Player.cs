@@ -187,6 +187,8 @@ namespace GGJ2024
         {
             GameObject effectGo = GameObject.Instantiate(GameManager.Singleton.bodyHitEffectPrefab, pos, Quaternion.identity);
             effectGo.GetComponent<HitEffect>().SetLifeTime(GameManager.Singleton.config.bodyHitEffectLifeTime);
+
+            AudioManager.Singleton.Play(GameManager.Singleton.playerBeHitClip, transform.position, transform.rotation);
             
             // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
             // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");

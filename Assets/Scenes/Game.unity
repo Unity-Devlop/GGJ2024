@@ -2302,6 +2302,7 @@ MonoBehaviour:
     noseHitEffectLifeTime: 2
   bodyHitEffectPrefab: {fileID: 1555726172980609578, guid: 2857eb14191b9cf40a8099a5b55f5428, type: 3}
   noseHitEffectPrefab: {fileID: 3471061014875133923, guid: f62050b1d50972d42b4f2d88d8da6e5b, type: 3}
+  playerBeHitClip: {fileID: 8300000, guid: abcaf0041e7b7d142a7c31c8c12d4679, type: 3}
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0

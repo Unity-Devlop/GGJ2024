@@ -18,6 +18,8 @@ namespace GGJ2024
 
         public GameObject bodyHitEffectPrefab;
         public GameObject noseHitEffectPrefab;
+        
+        public AudioClip playerBeHitClip;
 
         protected override void OnInit()
         {
