@@ -15,9 +15,9 @@ namespace GGJ2024
     public class Player : MonoBehaviour
     {
         private Rigidbody2D _rb2D;
-        private GGJ2024Input _input;
         private Transform _nose;
 
+        private GGJ2024Input _input;
 
         // todo 配置文件
         [field: SerializeField] public PlayerEnum playerEnum { get; private set; } = PlayerEnum.P1;
@@ -28,7 +28,7 @@ namespace GGJ2024
         
         // todo state param
         // private bool _isAttacking = false;
-        
+
 
         private void Awake()
         {
@@ -38,42 +38,50 @@ namespace GGJ2024
             _input.Enable();
         }
 
-        public Vector2 ReadMoveInput()
+        public Vector2 ReadMoveInput(PlayerEnum playerEnum)
         {
             switch (playerEnum)
             {
                 case PlayerEnum.P1:
                     return _input.Player1.Move.ReadValue<Vector2>();
                 case PlayerEnum.P2:
-                    return _input.Player2.Move.ReadValue<Vector2>();
+                    Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
+                    Vector3 mousePos = GlobalManager.ScreenToWorldPoint(mouseScreenPos);
+                    if (Mouse.current.leftButton.isPressed)
+                    {
+                        return (mousePos - transform.position).normalized;
+                    }
+
+                    return Vector2.zero;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
-        public bool WasNodePerformThisFrame()
+        public bool WasNodePerformThisFrame(PlayerEnum playerEnum)
         {
             switch (playerEnum)
             {
                 case PlayerEnum.P1:
                     return _input.Player1.Nose.WasPerformedThisFrame();
                 case PlayerEnum.P2:
-                    return _input.Player2.Nose.WasPerformedThisFrame();
+                    return Mouse.current.rightButton.wasPressedThisFrame;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+
         private void Update()
         {
-            if (WasNodePerformThisFrame())
+            if (WasNodePerformThisFrame(playerEnum))
             {
                 // todo 改成按住就伸长鼻子?
                 Attack();
             }
             else
             {
-                Vector2 moveInput = ReadMoveInput();
+                Vector2 moveInput = ReadMoveInput(playerEnum);
                 _rb2D.AddForce(moveForce * moveInput);
                 if (_rb2D.velocity.x > maxVelocityX)
                 {
@@ -94,10 +102,10 @@ namespace GGJ2024
                 }
             }
         }
-
         public void Attack()
         {
             //TODO 伸出鼻子进行攻击
+            Debug.Log($"{playerEnum}:Attack");
         }
 
         private void OnCollisionEnter2D(Collision2D other)
