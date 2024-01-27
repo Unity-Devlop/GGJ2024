@@ -20,8 +20,8 @@ namespace GGJ2024
 
         public void ToGame()
         {
-            SceneManager.LoadScene("Game");
             UIRoot.Singleton.CloseAll();
+            SceneManager.LoadScene("Game");
         }
         
         public static Vector3 ScreenToWorldPoint(Vector3 screenPos)
@@ -31,6 +31,8 @@ namespace GGJ2024
 
         public void ToHome()
         {
+            
+            UIRoot.Singleton.CloseAll();
             SceneManager.LoadScene("Home");
             UIRoot.Singleton.OpenPanel<EntryPanel>();
         }

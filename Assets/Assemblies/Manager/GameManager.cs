@@ -87,13 +87,13 @@ namespace GGJ2024
             }
         }
 
-        // [Sirenix.OdinInspector.Button]
+        [Sirenix.OdinInspector.Button]
         public void GameOver()
         {
             AudioManager.Singleton.StopGameBGM();
             gameState = GameState.GameOver;
-            // 
-            GlobalManager.Singleton.ToHome();
+
+            UIRoot.Singleton.OpenPanel<GameOverPanel>();
         }
 
         public void PlayerFailed(PlayerEnum playerEnum)
@@ -101,7 +101,7 @@ namespace GGJ2024
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
             if (target.currentHealth.Value <= 0)
             {
-                GameOver();
+                // GameOver();
                 return;
             }
 
