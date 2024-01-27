@@ -9,6 +9,7 @@ namespace GGJ2024
     public class GlobalManager : MonoSingleton<GlobalManager>
     {
         [SerializeField] private Camera _mainCamera;
+        protected override bool DontDestroyOnLoad() => true;
         [field: SerializeField] public LayerMask playerLayer { get; private set; }
         [field: SerializeField] public LayerMask noseLayer { get; private set; }
 
@@ -20,12 +21,12 @@ namespace GGJ2024
         protected override void OnDispose()
         {
         }
-        
-        
+
+
         // [Sirenix.OdinInspector.Button]
         public void PlayGenshin()
         {
-            GenshinPanel panel= UIRoot.Singleton.OpenPanel<GenshinPanel>();
+            GenshinPanel panel = UIRoot.Singleton.OpenPanel<GenshinPanel>();
             panel.PlayVideo();
         }
 
