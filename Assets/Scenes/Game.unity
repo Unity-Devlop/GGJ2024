@@ -2279,7 +2279,7 @@ MonoBehaviour:
       maxVelocityY: 6.5
       noseOutSpeed: 10
       noseInSpeed: 10
-      maxNoseLength: 3
+      maxNoseLength: 1.85
       noseForce: 10
       friction: 0.1
       bounce: 0.1
@@ -2293,7 +2293,7 @@ MonoBehaviour:
       maxVelocityY: 6.5
       noseOutSpeed: 10
       noseInSpeed: 10
-      maxNoseLength: 3
+      maxNoseLength: 1.85
       noseForce: 10
       friction: 0.1
       bounce: 0.1
