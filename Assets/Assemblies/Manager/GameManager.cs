@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityToolkit;
@@ -20,13 +21,12 @@ namespace GGJ2024
         public GameObject bodyHitEffectPrefab;
         public GameObject noseHitEffectPrefab;
 
+        // todo config save
         public AudioClip playerBeHitClip;
-
-        // todo
         public AudioClip playerDeadClip;
         public AudioClip playerBirthClip;
-
-        private List<Timer> _timers = new List<Timer>();
+        public AnimatorController p1Controller;
+        public AnimatorController p2Controller;
 
         protected override void OnInit()
         {

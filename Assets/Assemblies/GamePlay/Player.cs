@@ -1,6 +1,7 @@
 ﻿using System;
 using DG.Tweening;
 using Unity.Mathematics;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityToolkit;
@@ -35,6 +36,20 @@ namespace GGJ2024
             _nose = transform.Find("Nose").GetComponent<Nose>();
             _body = transform.Find("Body").GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
+
+            AnimatorController controller;
+            switch (playerEnum)
+            {
+                case PlayerEnum.P1:
+                    controller = GameManager.Singleton.p1Controller;
+                    break;
+                case PlayerEnum.P2:
+                    controller = GameManager.Singleton.p2Controller;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            _animator.runtimeAnimatorController = controller;
         }
 
 

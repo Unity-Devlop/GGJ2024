@@ -1602,6 +1602,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 555919891850636013, guid: 2f400d6e1a6b70e4daaa1c98ecd18f7e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 14741b5f045e3ed428d1fc6eb7a6f97f, type: 2}
     - target: {fileID: 1817815296699662014, guid: 2f400d6e1a6b70e4daaa1c98ecd18f7e, type: 3}
       propertyPath: m_SortingOrder
       value: 20
@@ -2283,6 +2287,7 @@ MonoBehaviour:
       noseForce: 10
       friction: 0.1
       bounce: 0.1
+      reSpawnTime: 1
     p2Config:
       moveForce: 4.5
       normalFacingLerpTime: 0.1
@@ -2297,6 +2302,7 @@ MonoBehaviour:
       noseForce: 10
       friction: 0.1
       bounce: 0.1
+      reSpawnTime: 1
     stopVelocity: 0.3
     bodyHitEffectLifeTime: 2
     noseHitEffectLifeTime: 2
@@ -2305,6 +2311,8 @@ MonoBehaviour:
   playerBeHitClip: {fileID: 8300000, guid: abcaf0041e7b7d142a7c31c8c12d4679, type: 3}
   playerDeadClip: {fileID: 8300000, guid: a756caf8e53e15a4ea60396a59865cf6, type: 3}
   playerBirthClip: {fileID: 8300000, guid: d6f098ed75bd35f48afe76c6b1af8189, type: 3}
+  p1Controller: {fileID: 9100000, guid: 372a7004119721c479b20412fc9fd740, type: 2}
+  p2Controller: {fileID: 9100000, guid: 14741b5f045e3ed428d1fc6eb7a6f97f, type: 2}
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0

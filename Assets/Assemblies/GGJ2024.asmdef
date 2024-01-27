@@ -6,7 +6,8 @@
         "UnityToolkit.Engine",
         "Unity.Mathematics",
         "Com.DOTween",
-        "Com.DOTweenPro"
+        "Com.DOTweenPro",
+        "Nico.DataTable"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
