@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_UpdateMethod
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5320617940173955118, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: orthographic size
+      value: 5.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6433842375718295934, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
