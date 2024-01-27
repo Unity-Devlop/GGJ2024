@@ -18,7 +18,7 @@ namespace GGJ2024
 
         private void OnBackToHomeButtonClick()
         {
-            GlobalManager.Singleton.BackToHome();
+            GlobalManager.Singleton.ToHome();
             CloseSelf();    
         }
 

@@ -175,6 +175,10 @@ PrefabInstance:
       propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 1184607304}
+    - target: {fileID: 3611232786906043119, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: m_UpdateMethod
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8754931811061686471, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
       propertyPath: m_Name
       value: Globals

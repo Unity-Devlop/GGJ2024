@@ -31,11 +31,11 @@ namespace GGJ2024
 
         private void TeleportPlayer(Transform playerTransform)
         {
-            // 入口的相对位置和旋转
+            // 鍏ュ彛鐨勭浉瀵逛綅缃拰鏃嬭浆
             Vector3 relativePosition = transform.InverseTransformPoint(playerTransform.position);
             Quaternion relativeRotation = Quaternion.Inverse(transform.rotation) * playerTransform.rotation;
 
-            // 出口的位置和旋转
+            // 鍑哄彛鐨勪綅缃拰鏃嬭浆
             playerTransform.position = exitPortal.TransformPoint(relativePosition);
             playerTransform.rotation = exitPortal.rotation * relativeRotation;
 

@@ -54,7 +54,7 @@ namespace GGJ2024
             AudioManager.Singleton.StopGameBGM();
             gameState = GameState.GameOver;
             
-            GlobalManager.Singleton.BackToHome();
+            GlobalManager.Singleton.ToHome();
         }
     }
 }

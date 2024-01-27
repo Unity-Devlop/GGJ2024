@@ -15,7 +15,7 @@ namespace GGJ2024
 
         private void OnStartButtonClick()
         {
-            GlobalManager.Singleton.EnterGame();
+            GlobalManager.Singleton.ToGame();
         }
     }
 }

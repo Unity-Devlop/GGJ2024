@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -23,12 +24,17 @@ namespace GGJ2024
 
         // todo 配置文件
         [field: SerializeField] public PlayerEnum playerEnum { get; private set; } = PlayerEnum.P1;
+        
         public float moveForce = 10f;
         public float facingLerpTime = 0.1f;
         public float maxVelocityX = 10f;
         public float maxVelocityY = 10f;
 
-        public float noseSpeed = 10f;
+        public float noseOutSpeed = 10f;
+        public float noseInSpeed = 10f;
+        
+        public float maxNoseLength = 10f;
+
 
         // todo state param
         private bool _isAttacking = false;
@@ -50,6 +56,8 @@ namespace GGJ2024
                 return;
             }
 
+            LimitSpeed();
+
             if (InputManager.Singleton.WasNosePerformThisFrame(playerEnum) && !_isAttacking)
             {
                 // todo 改成按住就伸长鼻子?
@@ -59,15 +67,7 @@ namespace GGJ2024
             {
                 Vector2 moveInput = InputManager.Singleton.ReadMoveInput(playerEnum);
                 _rb2D.AddForce(moveForce * moveInput);
-                if (_rb2D.velocity.x > maxVelocityX)
-                {
-                    _rb2D.velocity = new Vector2(maxVelocityX, _rb2D.velocity.y);
-                }
 
-                if (_rb2D.velocity.y > maxVelocityY)
-                {
-                    _rb2D.velocity = new Vector2(_rb2D.velocity.x, maxVelocityY);
-                }
 
                 // 同时让鼻子朝向慢慢的和移动方向一致
                 if (moveInput.magnitude > 0.1f)
@@ -79,15 +79,37 @@ namespace GGJ2024
             }
         }
 
+        private void LimitSpeed()
+        {
+            Vector2 abs = math.abs(_rb2D.velocity);
+
+            if (abs.x > maxVelocityX)
+            {
+                // Debug.Log("maxVelocityX");
+                int direction = _rb2D.velocity.x > 0 ? 1 : -1;
+                _rb2D.velocity = new Vector2(maxVelocityX * direction, _rb2D.velocity.y);
+            }
+
+            if (abs.y > maxVelocityY)
+            {
+                // Debug.Log("maxVelocityY");
+                int direction = _rb2D.velocity.y > 0 ? 1 : -1;
+                _rb2D.velocity = new Vector2(_rb2D.velocity.x, maxVelocityY * direction);
+            }
+        }
+
         public void Attack()
         {
             _isAttacking = true;
             _nose.StartAttack();
-            float duration = Vector3.Distance(_noseOrigin.localPosition, _noseDestination.localPosition) / noseSpeed;
+            float distance = Vector3.Distance(_noseOrigin.localPosition, _noseDestination.localPosition);
+            float outDuration = distance / noseOutSpeed;
+            float inDuration = distance / noseInSpeed;
             Transform noseTransform = _nose.transform;
-            noseTransform.DOLocalMove(_noseDestination.localPosition, duration).OnComplete(() =>
+            
+            noseTransform.DOLocalMove(_noseDestination.localPosition, outDuration).OnComplete(() =>
             {
-                noseTransform.DOLocalMove(_noseOrigin.localPosition, duration)
+                noseTransform.DOLocalMove(_noseOrigin.localPosition, inDuration)
                     .OnComplete(() =>
                     {
                         _isAttacking = false;
@@ -96,12 +118,24 @@ namespace GGJ2024
             });
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnValidate()
         {
-            // todo 如果是对方的鼻子 
-            // 1.拿到对方的朝向
-            // 2.计算对方给自己的力
-            // 3.给自己施加力
+            _noseDestination = transform.Find("NoseDestination");
+            _noseOrigin = transform.Find("NoseOrigin");
+            
+            _noseDestination.localPosition = _noseOrigin.localPosition + Vector3.right * maxNoseLength;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.black;
+            Gizmos.DrawLine(_noseOrigin.position, _noseDestination.position);
+            
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(_noseOrigin.position, 0.1f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(_noseDestination.position, 0.1f);
+            
         }
     }
 }

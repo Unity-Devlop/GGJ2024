@@ -26,7 +26,10 @@ namespace GGJ2024
                     Vector3 mousePos = GlobalManager.ScreenToWorldPoint(mouseScreenPos);
                     if (Mouse.current.leftButton.isPressed)
                     {
-                        return (mousePos - transform.position).normalized;
+                        Vector2 moveInput = (mousePos - transform.position).normalized;
+                        Debug.DrawLine(transform.position, transform.position + (Vector3)moveInput, Color.red);
+                        Debug.Log(moveInput);
+                        return moveInput;
                     }
 
                     return Vector2.zero;

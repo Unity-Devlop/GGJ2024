@@ -3,7 +3,8 @@
     "rootNamespace": "GGJ2024",
     "references": [
         "Unity.InputSystem",
-        "UnityToolkit.Engine"
+        "UnityToolkit.Engine",
+        "Unity.Mathematics"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

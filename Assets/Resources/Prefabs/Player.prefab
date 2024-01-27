@@ -168,7 +168,7 @@ Rigidbody2D:
   m_LinearDrag: 0.1
   m_AngularDrag: 0.5
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 623b92afffd2e734f8e28bd03d0adf9c, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -231,7 +231,8 @@ MonoBehaviour:
   facingLerpTime: 0.1
   maxVelocityX: 10
   maxVelocityY: 10
-  noseSpeed: 10
+  noseOutSpeed: 10
+  noseInSpeed: 10
 --- !u!1 &7262930486640625045
 GameObject:
   m_ObjectHideFlags: 0

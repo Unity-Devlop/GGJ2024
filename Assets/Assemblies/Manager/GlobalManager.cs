@@ -1,8 +1,7 @@
-﻿using System;
+﻿#define DEV
+
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityToolkit;
 
 namespace GGJ2024
@@ -16,14 +15,10 @@ namespace GGJ2024
 
         protected override void OnInit()
         {
-            UIRoot.Singleton.OpenPanel<EntryPanel>();
+            ToHome();
         }
 
-        protected override void OnDispose()
-        {
-        }
-
-        public void EnterGame()
+        public void ToGame()
         {
             SceneManager.LoadScene("Game");
             UIRoot.Singleton.CloseAll();
@@ -33,10 +28,9 @@ namespace GGJ2024
         {
             return SingletonNullable._mainCamera.ScreenToWorldPoint(screenPos);
         }
-        
-        public void BackToHome()
+
+        public void ToHome()
         {
-            
             SceneManager.LoadScene("Home");
             UIRoot.Singleton.OpenPanel<EntryPanel>();
         }
