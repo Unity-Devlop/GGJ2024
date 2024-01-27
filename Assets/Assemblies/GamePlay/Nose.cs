@@ -82,7 +82,7 @@ namespace GGJ2024
 
         private void OnBeNoseAttack(Vector3 position)
         {
-            GameObject effectGo = Instantiate(GameManager.Singleton.noseHitEffectPrefab, position, Quaternion.identity);
+            GameObject effectGo = Instantiate(GameManager.Singleton.globalConfig.noseHitEffectPrefab, position, Quaternion.identity);
             effectGo.GetComponent<HitEffect>().SetLifeTime(GameManager.Singleton.config.noseHitEffectLifeTime);
         }
 

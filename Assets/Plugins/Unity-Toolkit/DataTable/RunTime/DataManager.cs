@@ -146,6 +146,11 @@ namespace UnityToolkit
         private void OnValidate()
         {
             // DATA TABLE
+            if (_dataTables == null)
+            {
+                _dataTables = new List<ScriptableObject>();
+            }
+
             for (int i = _dataTables.Count - 1; i >= 0; i--)
             {
                 ScriptableObject dataTable = _dataTables[i];
@@ -163,6 +168,11 @@ namespace UnityToolkit
             }
 
             // CONFIG
+            if (_configList == null)
+            {
+                _configList = new List<ScriptableObject>();
+            }
+
             for (int i = _configList.Count - 1; i >= 0; i--)
             {
                 ScriptableObject config = _configList[i];
@@ -181,14 +191,19 @@ namespace UnityToolkit
         }
 #if UNITY_EDITOR
 
+        [SerializeField]
+        private string datablePath = "Assets/AddressablesResources/DataTable";
+
+        [SerializeField] private string configPath = "Assets/AddressablesResources/Config";
+        
 #if ODIN_INSPECTOR
         [Sirenix.OdinInspector.Button]
 #else
         [ContextMenu("LoadAll")]
 #endif
+        
         public void LoadAll()
         {
-            string datablePath = "Assets/AddressablesResources/DataTable";
             _dataTables = new List<ScriptableObject>();
             // 列出文件夹下所有文件
             string[] files = Directory.GetFiles(datablePath, "*.asset", SearchOption.AllDirectories);
@@ -206,7 +221,6 @@ namespace UnityToolkit
                 _dataTables.Add(asset);
             }
 
-            string configPath = "Assets/AddressablesResources/Config";
             _configList = new List<ScriptableObject>();
             // 列出文件夹下所有文件
             files = Directory.GetFiles(configPath, "*.asset", SearchOption.AllDirectories);

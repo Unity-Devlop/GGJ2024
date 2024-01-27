@@ -36,7 +36,7 @@ namespace GGJ2024
             }
             else if (curBtnCnt == 3)
             {
-                GlobalManager.Singleton.ToGame();
+                Timer.Register(0.3f, ()=>GlobalManager.Singleton.ToGame());
             }
         }
 

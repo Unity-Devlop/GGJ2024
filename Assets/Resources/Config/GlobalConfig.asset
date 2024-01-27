@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90af93fe3cdb40a7aef152ea0922b510, type: 3}
+  m_Name: GlobalConfig
+  m_EditorClassIdentifier: 
+  bodyHitEffectPrefab: {fileID: 1555726172980609578, guid: 2857eb14191b9cf40a8099a5b55f5428, type: 3}
+  noseHitEffectPrefab: {fileID: 3471061014875133923, guid: f62050b1d50972d42b4f2d88d8da6e5b, type: 3}
+  playerBeHitClip: {fileID: 8300000, guid: abcaf0041e7b7d142a7c31c8c12d4679, type: 3}
+  playerDeadClip: {fileID: 8300000, guid: a756caf8e53e15a4ea60396a59865cf6, type: 3}
+  playerBirthClip: {fileID: 8300000, guid: d6f098ed75bd35f48afe76c6b1af8189, type: 3}
+  p1Controller: {fileID: 9100000, guid: 372a7004119721c479b20412fc9fd740, type: 2}
+  p2Controller: {fileID: 9100000, guid: 14741b5f045e3ed428d1fc6eb7a6f97f, type: 2}

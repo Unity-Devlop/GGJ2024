@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityToolkit;
@@ -18,15 +17,8 @@ namespace GGJ2024
 
         [field: SerializeField] public GameConfig config { get; private set; }
 
-        public GameObject bodyHitEffectPrefab;
-        public GameObject noseHitEffectPrefab;
-
         // todo config save
-        public AudioClip playerBeHitClip;
-        public AudioClip playerDeadClip;
-        public AudioClip playerBirthClip;
-        public AnimatorController p1Controller;
-        public AnimatorController p2Controller;
+        public GlobalConfig globalConfig => DataManager.Singleton.Get<GlobalConfig>();
 
         protected override void OnInit()
         {
@@ -109,7 +101,7 @@ namespace GGJ2024
         {
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
 
-            AudioManager.Singleton.Play(playerDeadClip, target.transform.position, target.transform.rotation);
+            AudioManager.Singleton.Play(globalConfig.playerDeadClip, target.transform.position, target.transform.rotation);
 
             target.gameObject.SetActive(false); // todo
 
@@ -120,7 +112,6 @@ namespace GGJ2024
             }
 
             target.currentHealth.Value--;
-            target.SetInvincible();
             Vector3 spawnPoint;
             switch (playerEnum)
             {
@@ -137,8 +128,9 @@ namespace GGJ2024
             Timer.Register(playerConfig.reSpawnTime, () =>
             {
                 target.gameObject.SetActive(true);
+                target.SetInvincible();
                 target.transform.position = spawnPoint;
-                AudioManager.Singleton.Play(playerBirthClip, target.transform.position, target.transform.rotation);
+                AudioManager.Singleton.Play(globalConfig.playerBirthClip, target.transform.position, target.transform.rotation);
             });
         }
 

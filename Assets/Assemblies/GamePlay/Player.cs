@@ -1,7 +1,6 @@
 ﻿using System;
 using DG.Tweening;
 using Unity.Mathematics;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityToolkit;
@@ -37,14 +36,14 @@ namespace GGJ2024
             _body = transform.Find("Body").GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
 
-            AnimatorController controller;
+            RuntimeAnimatorController controller;
             switch (playerEnum)
             {
                 case PlayerEnum.P1:
-                    controller = GameManager.Singleton.p1Controller;
+                    controller = GameManager.Singleton.globalConfig.p1Controller;
                     break;
                 case PlayerEnum.P2:
-                    controller = GameManager.Singleton.p2Controller;
+                    controller = GameManager.Singleton.globalConfig.p2Controller;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -200,10 +199,10 @@ namespace GGJ2024
 
         public void OnBeNoseAttack(Vector2 force, Vector3 pos)
         {
-            GameObject effectGo = GameObject.Instantiate(GameManager.Singleton.bodyHitEffectPrefab, pos, Quaternion.identity);
+            GameObject effectGo = GameObject.Instantiate(GameManager.Singleton.globalConfig.bodyHitEffectPrefab, pos, Quaternion.identity);
             effectGo.GetComponent<HitEffect>().SetLifeTime(GameManager.Singleton.config.bodyHitEffectLifeTime);
 
-            AudioManager.Singleton.Play(GameManager.Singleton.playerBeHitClip, transform.position, transform.rotation);
+            AudioManager.Singleton.Play(GameManager.Singleton.globalConfig.playerBeHitClip, transform.position, transform.rotation);
             
             // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
             // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
