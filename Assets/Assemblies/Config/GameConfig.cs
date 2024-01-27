@@ -10,6 +10,10 @@ namespace GGJ2024
 
         public float stopVelocity = 0.3f;
         
+        public float bodyHitEffectLifeTime = 2f;
+        
+        public float noseHitEffectLifeTime = 2f;
+        
         
     }
 }

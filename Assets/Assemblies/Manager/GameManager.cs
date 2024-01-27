@@ -16,7 +16,10 @@ namespace GGJ2024
 
         [field: SerializeField] public GameConfig config { get; private set; }
 
-        public GameObject hitEffectPrefab;
+        public GameObject bodyHitEffectPrefab;
+        public GameObject noseHitEffectPrefab;
+        
+        public AudioClip playerBeHitClip;
 
         protected override void OnInit()
         {
@@ -86,13 +89,13 @@ namespace GGJ2024
             }
         }
 
-        // [Sirenix.OdinInspector.Button]
+        [Sirenix.OdinInspector.Button]
         public void GameOver()
         {
             AudioManager.Singleton.StopGameBGM();
             gameState = GameState.GameOver;
-            // 
-            GlobalManager.Singleton.ToHome();
+
+            UIRoot.Singleton.OpenPanel<GameOverPanel>();
         }
 
         public void PlayerFailed(PlayerEnum playerEnum)
@@ -100,9 +103,10 @@ namespace GGJ2024
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
             if (target.currentHealth.Value <= 0)
             {
-                GameOver();
+                // GameOver();
                 return;
             }
+
             target.currentHealth.Value--;
             target.SetInvincible();
             Vector3 spawnPoint;

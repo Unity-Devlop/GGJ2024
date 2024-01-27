@@ -54,7 +54,7 @@ namespace GGJ2024
                 {
                     Vector2 forceDir = (player.transform.position - transform.position).normalized;
                     // Debug.Log("Hit Player");
-                    player.NoseAttack(forceDir * force,_physics.transform.position);
+                    player.OnBeNoseAttack(forceDir * force, _physics.transform.position);
                     _filter.Add(hit);
                     continue;
                 }
@@ -73,10 +73,17 @@ namespace GGJ2024
                 if (hit.TryGetComponent(out Nose nose) && nose != this)
                 {
                     // Debug.Log("Hit Nose");
+                    nose.OnBeNoseAttack(_physics.transform.position);
                     _filter.Add(hit);
                     continue;
                 }
             }
+        }
+
+        private void OnBeNoseAttack(Vector3 position)
+        {
+            GameObject effectGo = Instantiate(GameManager.Singleton.noseHitEffectPrefab, position, Quaternion.identity);
+            effectGo.GetComponent<HitEffect>().SetLifeTime(GameManager.Singleton.config.noseHitEffectLifeTime);
         }
 
         public void CancelAttack()
@@ -93,25 +100,25 @@ namespace GGJ2024
             _attacking = true;
             _physics.enabled = true;
             _filter.Clear();
-            
-            
+
+
             Vector2 defaultSize = _visual.size;
             Vector2 maxSize = defaultSize;
             maxSize.x = maxLength;
-            
+
             // Debug.DrawLine(transform.position, transform.position + (Vector3) (Vector2.right * maxLength), Color.red,
             //     1f);
-            
+
             float distance = maxSize.x;
             float outDuration = distance / configNoseOutSpeed;
             float inDuration = distance / configNoseInSpeed;
-            
-            
+
+
             // var pos = _physics.transform.position;
             // Debug.DrawLine(pos, pos + maxSize.x * _physics.transform.right
             //     , Color.blue,
             //     1f);
-          
+
             DOTween.To(() => _visual.size, OnSizeUpdate, maxSize, outDuration)
                 // .SetEase(Ease.Linear)
                 .OnComplete(() =>

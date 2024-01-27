@@ -5,7 +5,8 @@
         "Unity.InputSystem",
         "UnityToolkit.Engine",
         "Unity.Mathematics",
-        "EasySave3"
+        "Com.DOTween",
+        "Com.DOTweenPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
