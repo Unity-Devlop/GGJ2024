@@ -14,9 +14,9 @@ namespace GGJ2024
 
         private Nose _nose;
 
-        // private Transform _noseOrigin;
-        // private Transform _noseDestination;
-        private SpriteRenderer _visual;
+        private SpriteRenderer _body;
+
+        private Animator _animator;
 
         // todo 配置文件
         [field: SerializeField] public PlayerEnum playerEnum { get; private set; } = PlayerEnum.P1;
@@ -33,7 +33,8 @@ namespace GGJ2024
         {
             _rb2D = GetComponent<Rigidbody2D>();
             _nose = transform.Find("Nose").GetComponent<Nose>();
-            _visual = GetComponent<SpriteRenderer>();
+            _body = transform.Find("Body").GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
         }
 
 
@@ -60,6 +61,43 @@ namespace GGJ2024
             {
                 LerpFacing(Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg);
             }
+
+            UpdateAnim();
+        }
+
+        private void UpdateAnim()
+        {
+            int curAnimHash = _animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
+            
+            if (_rb2D.velocity.magnitude > GameManager.Singleton.config.stopVelocity &&
+                curAnimHash != Global.playerMoveAnim)
+            {
+                // 如果当前动画不是 move 则切换到 move
+                Debug.Log($"{playerEnum}:Move");
+                _animator.SetBool(Global.playerIdleAnim, false);
+                _animator.SetBool(Global.playerMoveAnim, true); // 速度够大则 move
+            }
+            
+
+            if (_rb2D.velocity.magnitude <= GameManager.Singleton.config.stopVelocity &&
+                curAnimHash != Global.playerIdleAnim)
+            {
+                _animator.SetBool(Global.playerMoveAnim,false);
+                _animator.SetBool(Global.playerIdleAnim,true); // 速度太小则 idle
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.collider.CompareTag("Player"))
+            {
+                _animator.SetTrigger(Global.playerHitAnim);
+            }
+
+            if (other.collider.CompareTag("NoseCollider"))
+            {
+                _animator.SetTrigger(Global.noseHitAnim);
+            }
         }
 
         private void LerpFacing(float targetRotation)
@@ -74,7 +112,7 @@ namespace GGJ2024
             {
                 lerpTime = config.normalFacingLerpTime;
             }
-            
+
             Quaternion rotation3D =
                 Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, targetRotation), lerpTime);
             // _rb2D.rotation += rotation3D.eulerAngles.z - transform.rotation.eulerAngles.z;
@@ -112,28 +150,27 @@ namespace GGJ2024
             _state = PlayerState.Invincible;
             _rb2D.velocity = Vector2.zero;
             _rb2D.angularVelocity = 0;
-            Color origin = _visual.color;
+            Color origin = _body.color;
             Color newColor = origin;
             newColor.a = 0.5f;
-            _visual.color = newColor;
+            _body.color = newColor;
             // todo 闪烁以表示无敌
             Timer.Register(config.invincibleTime, () =>
             {
                 _state = PlayerState.Normal;
-                _visual.color = origin;
-            }, onUpdate: (f) =>
+                _body.color = origin;
+            }, onUpdate: f =>
             {
                 if (f % 0.2f < 0.1f)
                 {
-                    _visual.color = origin;
+                    _body.color = origin;
                 }
                 else
                 {
-                    _visual.color = newColor;
+                    _body.color = newColor;
                 }
             });
         }
-
 
         public void Attack()
         {
@@ -143,6 +180,13 @@ namespace GGJ2024
                 _state = PlayerState.Normal;
                 _nose.CancelAttack();
             });
+        }
+
+        public void NoseAttack(Vector2 force, Vector3 pos)
+        {
+            // todo 攻击特效
+            GameObject.Instantiate(GameManager.Singleton.hitEffectPrefab, pos, Quaternion.identity);
+            _rb2D.AddForce(force, ForceMode2D.Impulse);
         }
     }
 }

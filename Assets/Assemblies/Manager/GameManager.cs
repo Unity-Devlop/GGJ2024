@@ -16,6 +16,8 @@ namespace GGJ2024
 
         [field: SerializeField] public GameConfig config { get; private set; }
 
+        public GameObject hitEffectPrefab;
+
         protected override void OnInit()
         {
             // 从持久化路径中读取配置文件

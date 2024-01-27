@@ -54,7 +54,7 @@ namespace GGJ2024
                 {
                     Vector2 forceDir = (player.transform.position - transform.position).normalized;
                     // Debug.Log("Hit Player");
-                    player.GetComponent<Rigidbody2D>().AddForce(forceDir * force, ForceMode2D.Impulse);
+                    player.NoseAttack(forceDir * force,_physics.transform.position);
                     _filter.Add(hit);
                     continue;
                 }

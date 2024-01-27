@@ -583,6 +583,8 @@ MonoBehaviour:
       noseForce: 10
       friction: 0.1
       bounce: 0.1
+    stopVelocity: 1
+  hitEffectPrefab: {fileID: 1555726172980609578, guid: 2857eb14191b9cf40a8099a5b55f5428, type: 3}
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0
@@ -763,7 +765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6219794742604053027, guid: 2f400d6e1a6b70e4daaa1c98ecd18f7e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6219794742604053027, guid: 2f400d6e1a6b70e4daaa1c98ecd18f7e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1119,7 +1121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6219794742604053027, guid: 2f400d6e1a6b70e4daaa1c98ecd18f7e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.8
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 6219794742604053027, guid: 2f400d6e1a6b70e4daaa1c98ecd18f7e, type: 3}
       propertyPath: m_LocalPosition.y
