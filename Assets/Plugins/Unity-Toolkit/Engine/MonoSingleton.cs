@@ -60,7 +60,7 @@ namespace UnityToolkit
         {
             // Debug.Log($"Singleton<{typeof(T).Name}>.OnInit() -> {gameObject.name}");
             transform.SetParent(null);
-            if (DontDestroyOnLoad() && !Application.isEditor)
+            if (DontDestroyOnLoad())
             {
                 DontDestroyOnLoad(gameObject);
             }

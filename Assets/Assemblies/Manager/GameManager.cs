@@ -20,11 +20,16 @@ namespace GGJ2024
         public void GameStart()
         {
             AudioManager.Singleton.PlayGameBGM();
+            gameState = GameState.Playing;
         }
 
+        [Sirenix.OdinInspector.Button]
         public void GameOver()
         {
             AudioManager.Singleton.StopGameBGM();
+            gameState = GameState.GameOver;
+            
+            GlobalManager.Singleton.BackToHome();
         }
     }
 }

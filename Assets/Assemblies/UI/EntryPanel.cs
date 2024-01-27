@@ -5,7 +5,7 @@ using UnityToolkit;
 
 namespace GGJ2024
 {
-    public class HomePanel : UIPanel
+    public class EntryPanel : UIPanel
     {
         [SerializeField, UIBind] private Button startButton;
         private void Awake()
@@ -15,6 +15,7 @@ namespace GGJ2024
 
         private void OnStartButtonClick()
         {
+            GlobalManager.Singleton.EnterGame();
         }
     }
 }

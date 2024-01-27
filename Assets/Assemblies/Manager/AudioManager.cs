@@ -8,6 +8,10 @@ namespace GGJ2024
     {
         private AudioSource _global;
         public AudioClip gameBGM;
+
+        protected override bool DontDestroyOnLoad() => true;
+
+
         protected override void OnInit()
         {
             _global = GetComponent<AudioSource>();

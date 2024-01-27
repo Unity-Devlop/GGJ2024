@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityToolkit;
 
@@ -15,24 +16,29 @@ namespace GGJ2024
 
         protected override void OnInit()
         {
-            // UIRoot.Singleton.OpenPanel<HomePanel>();
+            UIRoot.Singleton.OpenPanel<EntryPanel>();
         }
 
         protected override void OnDispose()
         {
         }
 
-
-        // [Sirenix.OdinInspector.Button]
-        public void PlayGenshin()
+        public void EnterGame()
         {
-            GenshinPanel panel = UIRoot.Singleton.OpenPanel<GenshinPanel>();
-            panel.PlayVideo();
+            SceneManager.LoadScene("Game");
+            UIRoot.Singleton.CloseAll();
         }
-
+        
         public static Vector3 ScreenToWorldPoint(Vector3 screenPos)
         {
             return SingletonNullable._mainCamera.ScreenToWorldPoint(screenPos);
+        }
+        
+        public void BackToHome()
+        {
+            
+            SceneManager.LoadScene("Home");
+            UIRoot.Singleton.OpenPanel<EntryPanel>();
         }
     }
 }
