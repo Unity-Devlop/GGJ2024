@@ -21,7 +21,7 @@ namespace GGJ2024
         protected override void OnInit()
         {
             // 从持久化路径中读取配置文件
-            config = JsonManager.LoadJsonFromStreamingAssets<GameConfig>("Config/GameConfig.json");
+            // config = JsonManager.LoadJsonFromStreamingAssets<GameConfig>("Config/GameConfig.json");
             // debug
             GameStart();
         }
