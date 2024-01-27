@@ -8,7 +8,8 @@ namespace GGJ2024
     public class GlobalManager : MonoSingleton<GlobalManager>
     {
         [SerializeField] private Camera _mainCamera;
-        
+        public LayerMask hittableLayer;
+
         protected override void OnInit()
         {
 

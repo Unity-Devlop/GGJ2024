@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -15,7 +16,9 @@ namespace GGJ2024
     public class Player : MonoBehaviour
     {
         private Rigidbody2D _rb2D;
-        private Transform _nose;
+        private Nose _nose;
+        private Transform _noseOrigin;
+        private Transform _noseDestination;
 
         private GGJ2024Input _input;
 
@@ -25,15 +28,19 @@ namespace GGJ2024
         public float facingLerpTime = 0.1f;
         public float maxVelocityX = 10f;
         public float maxVelocityY = 10f;
-        
+
+        public float noseSpeed = 10f;
+
         // todo state param
-        // private bool _isAttacking = false;
+        private bool _isAttacking = false;
 
 
         private void Awake()
         {
             _rb2D = GetComponent<Rigidbody2D>();
-            _nose = transform.Find("Nose");
+            _nose = transform.Find("Nose").GetComponent<Nose>();
+            _noseOrigin = transform.Find("NoseOrigin");
+            _noseDestination = transform.Find("NoseDestination");
             _input = new GGJ2024Input();
             _input.Enable();
         }
@@ -74,7 +81,7 @@ namespace GGJ2024
 
         private void Update()
         {
-            if (WasNodePerformThisFrame(playerEnum))
+            if (WasNodePerformThisFrame(playerEnum) && !_isAttacking)
             {
                 // todo 改成按住就伸长鼻子?
                 Attack();
@@ -102,10 +109,22 @@ namespace GGJ2024
                 }
             }
         }
+
         public void Attack()
         {
-            //TODO 伸出鼻子进行攻击
-            Debug.Log($"{playerEnum}:Attack");
+            _isAttacking = true;
+            _nose.StartAttack();
+            float duration = Vector3.Distance(_noseOrigin.localPosition, _noseDestination.localPosition) / noseSpeed;
+            Transform noseTransform = _nose.transform;
+            noseTransform.DOLocalMove(_noseDestination.localPosition, duration).OnComplete(() =>
+            {
+                noseTransform.DOLocalMove(_noseOrigin.localPosition, duration)
+                    .OnComplete(() =>
+                    {
+                        _isAttacking = false;
+                        _nose.CancelAttack();
+                    });
+            });
         }
 
         private void OnCollisionEnter2D(Collision2D other)

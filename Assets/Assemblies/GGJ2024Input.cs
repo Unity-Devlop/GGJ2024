@@ -116,6 +116,98 @@ namespace GGJ2024
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Player2"",
+            ""id"": ""0152cf02-cd95-4004-a046-7fafe897b94a"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""3d156d47-c679-4b18-9410-de6fb2198dea"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Nose"",
+                    ""type"": ""Button"",
+                    ""id"": ""484a76a0-f25b-48ce-bcf5-709b6ccb81d0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""18959ea5-3f94-4a8e-ae20-dc6de3e21384"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""f4e79fed-bbe1-449e-9a9b-66fa354d982a"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ad7f87dd-c64b-4000-8cb5-fbaef1a0ac58"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4237ef5f-90ff-4e16-b0c7-e4de94605d99"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""e4fef211-b650-4db2-95e4-8736f14e11d6"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76dd573f-2802-4e94-82d0-2b55bfaa80a2"",
+                    ""path"": ""<Keyboard>/slash"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Nose"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -124,6 +216,10 @@ namespace GGJ2024
             m_Player1 = asset.FindActionMap("Player1", throwIfNotFound: true);
             m_Player1_Move = m_Player1.FindAction("Move", throwIfNotFound: true);
             m_Player1_Nose = m_Player1.FindAction("Nose", throwIfNotFound: true);
+            // Player2
+            m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
+            m_Player2_Move = m_Player2.FindAction("Move", throwIfNotFound: true);
+            m_Player2_Nose = m_Player2.FindAction("Nose", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -235,7 +331,66 @@ namespace GGJ2024
             }
         }
         public Player1Actions @Player1 => new Player1Actions(this);
+
+        // Player2
+        private readonly InputActionMap m_Player2;
+        private List<IPlayer2Actions> m_Player2ActionsCallbackInterfaces = new List<IPlayer2Actions>();
+        private readonly InputAction m_Player2_Move;
+        private readonly InputAction m_Player2_Nose;
+        public struct Player2Actions
+        {
+            private @GGJ2024Input m_Wrapper;
+            public Player2Actions(@GGJ2024Input wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Move => m_Wrapper.m_Player2_Move;
+            public InputAction @Nose => m_Wrapper.m_Player2_Nose;
+            public InputActionMap Get() { return m_Wrapper.m_Player2; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(Player2Actions set) { return set.Get(); }
+            public void AddCallbacks(IPlayer2Actions instance)
+            {
+                if (instance == null || m_Wrapper.m_Player2ActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_Player2ActionsCallbackInterfaces.Add(instance);
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Nose.started += instance.OnNose;
+                @Nose.performed += instance.OnNose;
+                @Nose.canceled += instance.OnNose;
+            }
+
+            private void UnregisterCallbacks(IPlayer2Actions instance)
+            {
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
+                @Nose.started -= instance.OnNose;
+                @Nose.performed -= instance.OnNose;
+                @Nose.canceled -= instance.OnNose;
+            }
+
+            public void RemoveCallbacks(IPlayer2Actions instance)
+            {
+                if (m_Wrapper.m_Player2ActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IPlayer2Actions instance)
+            {
+                foreach (var item in m_Wrapper.m_Player2ActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_Player2ActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public Player2Actions @Player2 => new Player2Actions(this);
         public interface IPlayer1Actions
+        {
+            void OnMove(InputAction.CallbackContext context);
+            void OnNose(InputAction.CallbackContext context);
+        }
+        public interface IPlayer2Actions
         {
             void OnMove(InputAction.CallbackContext context);
             void OnNose(InputAction.CallbackContext context);
