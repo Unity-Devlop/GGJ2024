@@ -35,7 +35,7 @@ namespace GGJ2024
             // mask.gameObject.SetActive(false);
             // Debug.Log("PlayGenshin");
             _videoPlayer.gameObject.SetActive(true);
-            float start = 13.5f;
+            float start = 0;//13.5f;
             _videoPlayer.time = start;
             _videoPlayer.Play();
             Timer.Register((float)_videoPlayer.clip.length - start, () => { GlobalManager.Singleton.ToHome(); });
@@ -48,6 +48,8 @@ namespace GGJ2024
             _alphaTweener?.Kill();
             // mask.gameObject.SetActive(true);
             mask.color = new Color(1, 1, 1, 0);
+            
+            base.OnClosed();
         }
     }
 }

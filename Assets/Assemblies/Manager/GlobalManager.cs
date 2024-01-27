@@ -20,6 +20,7 @@ namespace GGJ2024
 
         public void ToGame()
         {
+            UIRoot.Singleton.ClosePanel<HomePanel>();
             UIRoot.Singleton.CloseAll();
             SceneManager.LoadScene("Game");
         }
@@ -34,7 +35,7 @@ namespace GGJ2024
             
             UIRoot.Singleton.CloseAll();
             SceneManager.LoadScene("Home");
-            UIRoot.Singleton.OpenPanel<EntryPanel>();
+            UIRoot.Singleton.OpenPanel<HomePanel>();
         }
     }
 }

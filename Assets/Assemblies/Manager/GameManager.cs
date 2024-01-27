@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityToolkit;
@@ -18,8 +19,14 @@ namespace GGJ2024
 
         public GameObject bodyHitEffectPrefab;
         public GameObject noseHitEffectPrefab;
-        
+
         public AudioClip playerBeHitClip;
+
+        // todo
+        public AudioClip playerDeadClip;
+        public AudioClip playerBirthClip;
+
+        private List<Timer> _timers = new List<Timer>();
 
         protected override void OnInit()
         {
@@ -101,6 +108,11 @@ namespace GGJ2024
         public void PlayerFailed(PlayerEnum playerEnum)
         {
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
+
+            AudioManager.Singleton.Play(playerDeadClip, target.transform.position, target.transform.rotation);
+
+            target.gameObject.SetActive(false); // todo
+
             if (target.currentHealth.Value <= 0)
             {
                 // GameOver();
@@ -122,7 +134,12 @@ namespace GGJ2024
                     throw new ArgumentOutOfRangeException(nameof(playerEnum), playerEnum, null);
             }
 
-            target.transform.position = spawnPoint;
+            Timer.Register(playerConfig.reSpawnTime, () =>
+            {
+                target.gameObject.SetActive(true);
+                target.transform.position = spawnPoint;
+                AudioManager.Singleton.Play(playerBirthClip, target.transform.position, target.transform.rotation);
+            });
         }
 
 // #if UNITY_EDITOR

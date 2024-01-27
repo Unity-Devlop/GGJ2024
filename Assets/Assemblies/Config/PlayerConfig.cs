@@ -22,5 +22,7 @@ namespace GGJ2024
         
         public float friction = 0.1f; // 刚体材质 摩擦力
         public float bounce = 0.1f; // 刚体材质 弹力
+        
+        public float reSpawnTime = 1f; // 重生时间
     }
 }
