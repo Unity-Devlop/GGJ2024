@@ -6,13 +6,18 @@ namespace GGJ2024
 {
     public class HitEffect : MonoBehaviour
     {
-        public float lifeTime = 0.5f;
+        private float _lifeTime;
         public float currentLifeTime = 0;
 
+        public void SetLifeTime(float time)
+        {
+            _lifeTime = time;
+        }
+        
         private void Update()
         {
             currentLifeTime += Time.deltaTime;
-            if (currentLifeTime >= lifeTime)
+            if (currentLifeTime >= _lifeTime)
             {
                 Destroy(gameObject);
             }

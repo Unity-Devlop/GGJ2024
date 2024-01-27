@@ -42,9 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: MapLayer
+  - name: Unuse01
     uniqueID: 2084478231
     locked: 0
-  - name: PlayerLayer
+  - name: Unuse02
     uniqueID: 1961300359
     locked: 0

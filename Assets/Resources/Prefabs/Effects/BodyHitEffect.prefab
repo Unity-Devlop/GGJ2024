@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2180204432860458321}
   - component: {fileID: 4052006802794040196}
   m_Layer: 0
-  m_Name: HitEffect
+  m_Name: BodyHitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 21300000, guid: bf660f61c4421e04f83b24913f8205f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,5 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16002fa6b3ff429ca3aa6ef5e8303bc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 0.5
   currentLifeTime: 0

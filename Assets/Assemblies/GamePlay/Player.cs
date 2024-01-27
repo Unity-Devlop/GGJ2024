@@ -183,10 +183,12 @@ namespace GGJ2024
             });
         }
 
-        public void NoseAttack(Vector2 force, Vector3 pos)
+        public void OnBeNoseAttack(Vector2 force, Vector3 pos)
         {
-            // todo 攻击特效
-            GameObject.Instantiate(GameManager.Singleton.hitEffectPrefab, pos, Quaternion.identity);
+            GameObject effectGo = GameObject.Instantiate(GameManager.Singleton.bodyHitEffectPrefab, pos, Quaternion.identity);
+            effectGo.GetComponent<HitEffect>().SetLifeTime(GameManager.Singleton.config.bodyHitEffectLifeTime);
+            
+            // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
             // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
             _rb2D.AddForce(force, ForceMode2D.Impulse);
         }

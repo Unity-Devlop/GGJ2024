@@ -16,7 +16,8 @@ namespace GGJ2024
 
         [field: SerializeField] public GameConfig config { get; private set; }
 
-        public GameObject hitEffectPrefab;
+        public GameObject bodyHitEffectPrefab;
+        public GameObject noseHitEffectPrefab;
 
         protected override void OnInit()
         {
@@ -103,6 +104,7 @@ namespace GGJ2024
                 GameOver();
                 return;
             }
+
             target.currentHealth.Value--;
             target.SetInvincible();
             Vector3 spawnPoint;
