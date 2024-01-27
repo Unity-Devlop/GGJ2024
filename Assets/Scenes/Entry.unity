@@ -187,9 +187,17 @@ PrefabInstance:
       propertyPath: audioPrefab
       value: 
       objectReference: {fileID: 7556679195232956018, guid: 36d9867af5c107542bb75dd6bdadb9f4, type: 3}
+    - target: {fileID: 6379220152463540006, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: btnClickSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 96ba3171dfde3894aa971a8b918e6f63, type: 3}
+    - target: {fileID: 6433842375718295934, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6433842375718295934, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
       propertyPath: m_Volume
-      value: 0.3
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6433842375718295934, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
       propertyPath: m_PlayOnAwake
