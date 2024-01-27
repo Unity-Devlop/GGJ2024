@@ -8,12 +8,21 @@ namespace GGJ2024
     public class StopWall : MonoBehaviour
     {
         public Vector2 targetVelocity;
+        /*
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player")) {
                 Rigidbody2D rg = collision.gameObject.GetComponent<Rigidbody2D>();
                 rg.velocity = targetVelocity;
                 
+            }
+        }
+        */
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player")) {
+                Rigidbody2D rg = collision.gameObject.GetComponent<Rigidbody2D>();
+                rg.velocity = targetVelocity;
             }
         }
     }

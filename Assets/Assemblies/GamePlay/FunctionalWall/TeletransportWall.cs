@@ -9,8 +9,13 @@ namespace GGJ2024
     {
 
         public Transform exitPortal;
+        public GameObject targetExitWall;
 
         private bool triggerable = true;
+        private bool cantriggerTarget = false;
+
+        public float triggerInterval = 1f;
+        private float timer = 0.0f;
 
         private void OnTriggerEnter2D(Collider2D collision)
            
@@ -19,11 +24,28 @@ namespace GGJ2024
             if (collision.CompareTag("Player") && triggerable) {
                 TeleportPlayer(collision.transform);
                 triggerable = false;
+                cantriggerTarget = false;
             }
+            
         }
         private void Update()
         {
-            if (!triggerable) { 
+            if (timer > triggerInterval) {
+                timer = 0.0f;
+                cantriggerTarget = true;
+                
+            }
+            timer += Time.deltaTime;
+            Collider2D collider2D = targetExitWall.GetComponent<BoxCollider2D>();
+            collider2D.isTrigger = cantriggerTarget;
+
+
+
+        }
+        private void FixedUpdate()
+        {
+            if (!triggerable)
+            {
                 triggerable = true;
             }
         }
