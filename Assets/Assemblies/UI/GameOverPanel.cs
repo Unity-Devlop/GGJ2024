@@ -18,6 +18,7 @@ namespace GGJ2024
 
         public override void OnOpened()
         {
+            base.OnOpened();
             RenderTexture videoTexture = new RenderTexture(textureSize.x, textureSize.y, 0);
             
             _videoPlayer.targetTexture = videoTexture;
