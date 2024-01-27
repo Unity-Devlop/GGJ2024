@@ -6,21 +6,25 @@ namespace GGJ2024
 {
     [RequireComponent(typeof(Collider2D))]
 
-    
+
     public class HittableWall : MonoBehaviour
     {
         public int MaxhitCount = 3;
-       
+
         public GameObject shower;
         private GameObject audioPrefab;
         public AudioClip clip;
+        public float invincibleTime = 0.5f;
+        private float invincibleTimer = 0f;
 
-       
+
 
         private int hitCount = 0;
 
-        public float minTimeBetweenTriggers = 0.5f;
-        private float timer = 0f;
+        [Header ("受击时令墙损坏的速度阈值")]
+        public float hittedVelocity = 10f;
+
+
 
         private Stack<Sprite> spriteStack = new Stack<Sprite>();
         public Sprite[] sprites;
@@ -45,28 +49,46 @@ namespace GGJ2024
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-           
-            if (collision.gameObject.CompareTag("Player"))
-            {
-       
-                hitCount++;
-                StartCoroutine(showMap());
+            
+            if (invincibleTimer > invincibleTime) {
+                //判断碰撞的是player且玩家速度的模大于阈值
+                if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > hittedVelocity)
+                {
+                    
 
+
+                    StartCoroutine(showMap());
+                    hitCount++;
+
+                    //播放音乐
+                    OnhitPlay();
+
+                    //计时器归0
+                    invincibleTimer = 0f;
+
+
+                }
+
+                //判断受击次数
+                if (hitCount > MaxhitCount)
+                {
+                    Destroy(gameObject);
+                }
+
+
+
+                
+                
             }
 
-            if (hitCount > MaxhitCount)
-            {
-                Destroy(gameObject);
-            }
-
-            OnhitPlay();
 
         }
 
 
         private void Update()
         {
-            timer -= Time.deltaTime;
+
+            invincibleTimer += Time.deltaTime;
         }
         /*
         IEnumerator FadeOut()
@@ -80,6 +102,8 @@ namespace GGJ2024
             }
         }
         */
+
+        //受击后地图变化
         IEnumerator showMap() {
 
             if (spriteStack.Count != 0)
