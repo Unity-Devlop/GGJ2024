@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 2064804366869203380}
   - component: {fileID: 6755639951925628699}
   - component: {fileID: 7487796808559859503}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,7 +243,8 @@ GameObject:
   - component: {fileID: 6872487066281408628}
   - component: {fileID: 1817815296699662014}
   - component: {fileID: 4466801907952286115}
-  m_Layer: 0
+  - component: {fileID: 3722290416969597981}
+  m_Layer: 6
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,6 +330,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a04587babc4d42bd5157b5350322c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.2
-  attacking: 0
   force: 10
+--- !u!58 &3722290416969597981
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7262930486640625045}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
