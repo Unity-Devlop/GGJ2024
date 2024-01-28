@@ -22,13 +22,14 @@ namespace GGJ2024
         }
         private bool IsOutOfScreen()
         {
-            /*
+            
             Debug.Log("Transform: " + transform.position.x + " " + transform.position.y);
             Debug.Log("rect: " + rect.xMin + " " + rect.xMax + " " + rect.yMin + " " + rect.yMax);
-            */
+            
             if ((transform.position.x < rect.xMin || transform.position.x > rect.xMax) && ( transform.position.y > rect.yMax || transform.position.y < rect.yMin)) {
 
                 //GameManager.Singleton.GameOver();
+                
                 
                 return true;
             }
