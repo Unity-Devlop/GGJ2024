@@ -38,12 +38,14 @@ namespace GGJ2024
         {
             base.OnOpened();
             Time.timeScale = 0;
+            AudioManager.Singleton.StopBGM();
         }
 
         public override void OnClosed()
         {
             base.OnClosed();
             Time.timeScale = 1;
+            AudioManager.Singleton.PlayBGM(GameManager.Singleton.globalConfig.gameBGM);
         }
     }
 }

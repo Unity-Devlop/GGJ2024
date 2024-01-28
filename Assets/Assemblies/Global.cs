@@ -12,5 +12,6 @@ namespace GGJ2024
         public static readonly int oldManFallAnim = Animator.StringToHash("fall");
         
         public static readonly int gameStartAnim = Animator.StringToHash("start");
+        public static string enterTimes = "enterTimes";
     }
 }

@@ -20,8 +20,18 @@ namespace GGJ2024
 
         public void ToGame()
         {
-            UIRoot.Singleton.CloseAll();
-            SceneManager.LoadScene("Game");
+            int enterTimes = PlayerPrefs.GetInt(Global.enterTimes);
+            if (enterTimes == 0)
+            {
+                // todo 等待教程页关闭
+            }
+            else
+            {
+                UIRoot.Singleton.CloseAll();
+                SceneManager.LoadScene("Game");
+            }
+            
+            PlayerPrefs.SetInt(Global.enterTimes, enterTimes + 1);
         }
         
         public static Vector3 ScreenToWorldPoint(Vector3 screenPos)

@@ -26,6 +26,7 @@ namespace GGJ2024
             // config = JsonManager.LoadJsonFromStreamingAssets<GameConfig>("Config/GameConfig.json");
             // debug
             // GameStart();
+
             gameState = GameState.Waiting;
             SpawnPlayer(PlayerEnum.P1);
             SpawnPlayer(PlayerEnum.P2);
@@ -92,7 +93,7 @@ namespace GGJ2024
         {
             AudioManager.Singleton.StopBGM();
             gameState = GameState.GameOver;
-            
+
             UIRoot.Singleton.CloseAll();
             UIRoot.Singleton.OpenPanel<GameOverPanel>();
         }
@@ -102,23 +103,22 @@ namespace GGJ2024
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
 
 
-            
             AudioManager.Singleton.Play(globalConfig.playerDeadClip, target.transform.position,
                 target.transform.rotation);
 
             target.gameObject.SetActive(false); // todo
-            
+
             if (target.currentHealth.Value <= 0)
             {
                 // GameOver();
                 return;
             }
-            
+
             if (target.State == PlayerState.WaitingForRespawn)
             {
                 return;
             }
-            
+
             target.State = PlayerState.WaitingForRespawn;
 
             target.currentHealth.Value--;
