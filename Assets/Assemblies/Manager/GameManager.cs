@@ -25,7 +25,11 @@ namespace GGJ2024
             // 从持久化路径中读取配置文件 todo
             // config = JsonManager.LoadJsonFromStreamingAssets<GameConfig>("Config/GameConfig.json");
             // debug
-            GameStart();
+            // GameStart();
+
+            gameState = GameState.Waiting;
+            UIRoot.Singleton.CloseAll();
+            UIRoot.Singleton.OpenPanel<GamePanel>();
         }
 
         private void Update()
@@ -59,9 +63,6 @@ namespace GGJ2024
             SpawnPlayer(PlayerEnum.P2);
 
             gameState = GameState.Playing;
-
-            UIRoot.Singleton.CloseAll();
-            UIRoot.Singleton.OpenPanel<GamePanel>();
         }
 
         private void SpawnPlayer(PlayerEnum playerEnum)

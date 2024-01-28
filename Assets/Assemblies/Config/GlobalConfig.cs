@@ -15,5 +15,6 @@ namespace GGJ2024
         public AudioClip playerBirthClip;
         public RuntimeAnimatorController p1Controller;
         public RuntimeAnimatorController p2Controller;
+        public AudioClip countDownClip;
     }
 }
