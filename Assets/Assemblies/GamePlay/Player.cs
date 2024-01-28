@@ -232,5 +232,10 @@ namespace GGJ2024
             // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
             _rb2D.AddForce(force, ForceMode2D.Impulse);
         }
+
+        public void ReSetNose()
+        {
+            _nose.ReSetNose();
+        }
     }
 }

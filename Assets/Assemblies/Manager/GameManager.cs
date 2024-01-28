@@ -98,6 +98,12 @@ namespace GGJ2024
             UIRoot.Singleton.OpenPanel<GameOverPanel>();
         }
 
+        [Sirenix.OdinInspector.Button]
+        private void SaveConfig()
+        {
+            JsonManager.SaveJsonToStreamingAssets("Config/GameConfig.json", config);
+        }
+
         public void PlayerFailed(PlayerEnum playerEnum)
         {
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
@@ -138,6 +144,7 @@ namespace GGJ2024
             Timer.Register(playerConfig.reSpawnTime, () =>
             {
                 target.gameObject.SetActive(true);
+                target.ReSetNose();
                 target.SetInvincible();
                 target.transform.position = spawnPoint;
                 AudioManager.Singleton.Play(globalConfig.playerBirthClip, target.transform.position,

@@ -29,5 +29,6 @@ namespace GGJ2024
 
 
         public float p2OldManDetectRange = 1f;
+        public int wallHitCount = 3;
     }
 }

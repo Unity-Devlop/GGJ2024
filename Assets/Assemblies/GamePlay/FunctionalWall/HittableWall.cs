@@ -9,7 +9,7 @@ namespace GGJ2024
     [RequireComponent(typeof(Collider2D))]
     public class HittableWall : MonoBehaviour
     {
-        [SerializeField] private int maxHitCount = 3;
+        private int maxHitCount => GameManager.Singleton.config.wallHitCount;
         public SpriteRenderer visual;
         public AudioClip clip;
         public float invincibleTime = 0.5f;
