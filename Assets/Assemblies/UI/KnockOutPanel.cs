@@ -37,7 +37,7 @@ namespace GGJ2024
         private IEnumerator FadeInCoroutine()
             
         {
-            Debug.Log("渐变启动");
+            // Debug.Log("渐变启动");
             // 获取面板上的Image组件
             Image blackImage = transform.GetChild(0).GetComponent<Image>();
             if (blackImage == null)

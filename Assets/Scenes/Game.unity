@@ -2301,15 +2301,15 @@ MonoBehaviour:
       reSpawnTime: 1
       flashInterval: 0.2
     stopVelocity: 0.3
-    bodyHitEffectLifeTime: 1
-    noseHitEffectLifeTime: 1
+    bodyHitEffectLifeTime: 0.3
+    noseHitEffectLifeTime: 0.3
     oldManP1PlatformMoveSpeed: 100
     oldManP2PlatformMoveSpeed: 100
     stopWallProtectTime: 1
     normalWallProtectTime: 1
     brokenWallVelocity: 1
-    p1OldManDetectRange: 1
-    p2OldManDetectRange: 1
+    p1OldManDetectRange: 0.4
+    p2OldManDetectRange: 0.4
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0
