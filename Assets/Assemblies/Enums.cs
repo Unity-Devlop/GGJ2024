@@ -17,6 +17,7 @@
     public enum PlayerState
     {
         Normal,
+        WaitingForRespawn,
         Invincible,
         Attacking
     }

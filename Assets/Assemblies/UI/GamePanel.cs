@@ -54,7 +54,7 @@ namespace GGJ2024
         {
             // Debug.Log("GamePanel OnClosed");
             // _timer?.Cancel();
-            CancelInvoke();
+            // CancelInvoke();
             _p1HUD.Unbind();
             _p2HUD.Unbind();
             base.OnClosed();

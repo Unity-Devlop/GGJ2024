@@ -101,16 +101,25 @@ namespace GGJ2024
         {
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
 
+
+            
             AudioManager.Singleton.Play(globalConfig.playerDeadClip, target.transform.position,
                 target.transform.rotation);
 
             target.gameObject.SetActive(false); // todo
-
+            
             if (target.currentHealth.Value <= 0)
             {
                 // GameOver();
                 return;
             }
+            
+            if (target.State == PlayerState.WaitingForRespawn)
+            {
+                return;
+            }
+            
+            target.State = PlayerState.WaitingForRespawn;
 
             target.currentHealth.Value--;
             Vector3 spawnPoint;
