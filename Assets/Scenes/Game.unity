@@ -2264,9 +2264,8 @@ MonoBehaviour:
       noseInSpeed: 10
       maxNoseLength: 1.85
       noseForce: 10
-      friction: 0.1
-      bounce: 0.1
       reSpawnTime: 1
+      flashInterval: 0.2
     p2Config:
       moveForce: 4.5
       normalFacingLerpTime: 0.1
@@ -2279,15 +2278,15 @@ MonoBehaviour:
       noseInSpeed: 10
       maxNoseLength: 1.85
       noseForce: 10
-      friction: 0.1
-      bounce: 0.1
       reSpawnTime: 1
+      flashInterval: 0.2
     stopVelocity: 0.3
     bodyHitEffectLifeTime: 1
     noseHitEffectLifeTime: 1
     oldManP1PlatformMoveSpeed: 100
     oldManP2PlatformMoveSpeed: 100
-    flickerInterval: 0.2
+    stopWallProtectTime: 1
+    normalWallProtectTime: 1
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0
@@ -3732,6 +3731,10 @@ PrefabInstance:
     - target: {fileID: 407943093248964625, guid: 37f91f50589828b44a49ff2e569b2f46, type: 3}
       propertyPath: m_Name
       value: P1FailedArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 407943093248964625, guid: 37f91f50589828b44a49ff2e569b2f46, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8836446744838598222, guid: 37f91f50589828b44a49ff2e569b2f46, type: 3}
       propertyPath: m_LocalPosition.x

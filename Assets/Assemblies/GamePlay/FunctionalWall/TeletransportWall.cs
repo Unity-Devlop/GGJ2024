@@ -61,6 +61,8 @@ namespace GGJ2024
             playerTransform.position = exitPortal.TransformPoint(relativePosition);
             playerTransform.rotation = exitPortal.rotation * relativeRotation;
 
+            
+            AudioManager.Singleton.PlayAtCamera(GameManager.Singleton.globalConfig.teleportClip);
 
         }
     }

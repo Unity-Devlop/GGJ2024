@@ -19,5 +19,9 @@ namespace GGJ2024
         
         public float oldManP2PlatformMoveSpeed = 100f;
         
+        public float stopWallProtectTime = 1f;
+        
+        public float normalWallProtectTime = 1f;
+        
     }
 }

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolkit;
 
 namespace GGJ2024
 {
@@ -8,21 +10,23 @@ namespace GGJ2024
     public class StopWall : MonoBehaviour
     {
         public Vector2 targetVelocity;
-        /*
-        private void OnTriggerEnter2D(Collider2D collision)
+        private float protectTime => GameManager.Singleton.config.stopWallProtectTime;
+        private bool _canHit;
+
+        private void Awake()
         {
-            if (collision.CompareTag("Player")) {
-                Rigidbody2D rg = collision.gameObject.GetComponent<Rigidbody2D>();
-                rg.velocity = targetVelocity;
-                
-            }
+            _canHit = true;
         }
-        */
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player")) {
+
                 Rigidbody2D rg = collision.gameObject.GetComponent<Rigidbody2D>();
                 rg.velocity = targetVelocity;
+                _canHit = false;
+                Timer.Register(protectTime, () => { _canHit = true; });
+                AudioManager.Singleton.PlayAtCamera(GameManager.Singleton.globalConfig.stopWallClip);
             }
         }
     }

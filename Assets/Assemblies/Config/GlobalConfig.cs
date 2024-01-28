@@ -25,7 +25,9 @@ namespace GGJ2024
         public AudioClip homeBGM;
         
         public AudioClip gameBGM;
-        
+        public AudioClip teleportClip;
+        public AudioClip stopWallClip;
+
         // public VideoClip genshinClip;
     }
 }

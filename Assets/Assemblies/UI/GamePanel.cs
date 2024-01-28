@@ -14,6 +14,7 @@ namespace GGJ2024
         [SerializeField] private RectTransform countItem;
 
         private Timer _timer;
+
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -28,9 +29,17 @@ namespace GGJ2024
             _animator.Play(Global.gameStartAnim);
 
             // Debug.Log("GamePanel OnOpened");
-            
             Timer.Register(3, OnKeyFrame);
-            
+
+            Timer.Register(1,
+                () => { AudioManager.Singleton.PlayAtCamera(GameManager.Singleton.globalConfig.countDownClip); });
+
+            Timer.Register(2,
+                () => { AudioManager.Singleton.PlayAtCamera(GameManager.Singleton.globalConfig.countDownClip); });
+
+            Timer.Register(3,
+                () => { AudioManager.Singleton.PlayAtCamera(GameManager.Singleton.globalConfig.countOverClip); });
+
             // Debug.Log("GamePanel OnOpened");
             _p1HUD.gameObject.SetActive(false);
             _p2HUD.gameObject.SetActive(false);

@@ -24,4 +24,5 @@ MonoBehaviour:
   countOverClip: {fileID: 8300000, guid: dc08481d4dbfc26449739e576f82f8bb, type: 3}
   homeBGM: {fileID: 8300000, guid: b9cb96d192973a24f9915c4a62f0eae5, type: 3}
   gameBGM: {fileID: 8300000, guid: 34966c8cb3e4b3341b924f0eabeb1764, type: 3}
-  genshinClip: {fileID: 32900000, guid: a7262641a4772964a90250bf96dc9385, type: 3}
+  teleportClip: {fileID: 8300000, guid: 8fca3646fbe7ecb4c9159804ba0d6030, type: 3}
+  stopWallClip: {fileID: 8300000, guid: be4d26edc990db04189d8939468e405b, type: 3}
