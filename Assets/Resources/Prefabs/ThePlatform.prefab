@@ -139,12 +139,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 9eeb98be85fd8de4bb5d39728afaceb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d7f70a3537b6eb498c75e95d2a7c851, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.15, y: 1.93}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -187,7 +187,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.15, y: 1.93}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 1.15, y: 1.93}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -210,7 +210,6 @@ MonoBehaviour:
   startPos: {fileID: 8031431946988480393}
   endPos: {fileID: 6517127749501390144}
   moveSpeed: 100
-  camera: {fileID: 0}
 --- !u!50 &2255585043488835895
 Rigidbody2D:
   serializedVersion: 4

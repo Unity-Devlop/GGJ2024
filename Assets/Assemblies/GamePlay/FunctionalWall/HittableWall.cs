@@ -53,8 +53,6 @@ namespace GGJ2024
                 if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > hittedVelocity)
                 {
                     
-
-
                     StartCoroutine(showMap());
                     hitCount++;
 
