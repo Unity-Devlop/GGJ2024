@@ -85,20 +85,6 @@ namespace GGJ2024
 
                 rg.velocity = transform.parent.GetComponent<Rigidbody2D>().velocity;
             }
-        
-            
-        }
-
-            float height = 2 * distance * Mathf.Tan(camera.fieldOfView / 2 * Mathf.Deg2Rad);
-            float width = height * camera.aspect;
-            Rect rect = new Rect
-            {
-                xMin = cameraPos.x - width / 2,
-                xMax = cameraPos.x + width / 2,
-                yMin = cameraPos.y - height / 2,
-                yMax = cameraPos.y + height / 2
-            };
-            return rect;
         }
 
     }
