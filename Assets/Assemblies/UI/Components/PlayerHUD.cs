@@ -25,10 +25,10 @@ namespace GGJ2024
             switch (_player.playerEnum)
             {
                 case PlayerEnum.P1:
-                    _lifeText.text = $"x{obj.Value}";
+                    _lifeText.text = $"x{obj.Value+1}";
                     break;
                 case PlayerEnum.P2:
-                    _lifeText.text = $"{obj.Value}x";
+                    _lifeText.text = $"{obj.Value+1}x";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

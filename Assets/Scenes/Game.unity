@@ -2310,6 +2310,7 @@ MonoBehaviour:
     brokenWallVelocity: 1
     p1OldManDetectRange: 0.4
     p2OldManDetectRange: 0.4
+    wallHitCount: 3
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0

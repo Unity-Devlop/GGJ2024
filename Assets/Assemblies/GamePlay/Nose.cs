@@ -18,7 +18,7 @@ namespace GGJ2024
         private readonly HashSet<Collider2D> _filter = new HashSet<Collider2D>();
 
         private Transform _noseOrigin;
-
+        private Vector2 _defaultSize;
 
         private void Awake()
         {
@@ -29,6 +29,7 @@ namespace GGJ2024
             _noseOrigin = transform.Find("NoseOrigin");
 
             _physics.enabled = false;
+            _defaultSize = _visual.size;
         }
 
         private void Update()
@@ -82,12 +83,14 @@ namespace GGJ2024
 
         private void OnBeNoseAttack(Vector3 position)
         {
-            GameObject effectGo = Instantiate(GameManager.Singleton.globalConfig.noseHitEffectPrefab, position, Quaternion.identity);
+            GameObject effectGo = Instantiate(GameManager.Singleton.globalConfig.noseHitEffectPrefab, position,
+                Quaternion.identity);
             effectGo.GetComponent<HitEffect>().SetLifeTime(GameManager.Singleton.config.noseHitEffectLifeTime);
         }
 
         public void CancelAttack()
         {
+            _visual.size = _defaultSize;
             _physics.transform.localPosition = _noseOrigin.localPosition;
             _attacking = false;
             _physics.enabled = false;
@@ -102,8 +105,7 @@ namespace GGJ2024
             _filter.Clear();
 
 
-            Vector2 defaultSize = _visual.size;
-            Vector2 maxSize = defaultSize;
+            Vector2 maxSize = _defaultSize;
             maxSize.x = maxLength;
 
             // Debug.DrawLine(transform.position, transform.position + (Vector3) (Vector2.right * maxLength), Color.red,
@@ -123,7 +125,7 @@ namespace GGJ2024
                 // .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
-                    DOTween.To(() => _visual.size, OnSizeUpdate, defaultSize, inDuration)
+                    DOTween.To(() => _visual.size, OnSizeUpdate, _defaultSize, inDuration)
                         // .SetEase(Ease.Linear)
                         .OnComplete(() =>
                         {
@@ -131,6 +133,12 @@ namespace GGJ2024
                             CancelAttack();
                         });
                 });
+        }
+
+        public void ReSetNose()
+        {
+            _visual.size = _defaultSize;
+            _physics.transform.localPosition = _noseOrigin.localPosition;
         }
 
         private void OnSizeUpdate(Vector2 size)
