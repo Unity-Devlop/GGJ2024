@@ -24,5 +24,10 @@ namespace GGJ2024
         public float normalWallProtectTime = 1f;
 
         public float brokenWallVelocity = 1f;
+
+        public float p1OldManDetectRange = 1f;
+
+
+        public float p2OldManDetectRange = 1f;
     }
 }
