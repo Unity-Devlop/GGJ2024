@@ -16,9 +16,17 @@ namespace GGJ2024
         [SerializeField] private Sprite dog1;
         [SerializeField] private Sprite dog2;
         
+        [SerializeField] private Button memberInfoButton;
+        
         private void Awake()
         {
             startButton.onClick.AddListener(OnStartButtonClick);
+            memberInfoButton.onClick.AddListener(OnMemberInfoButtonClick);
+        }
+
+        private void OnMemberInfoButtonClick()
+        {
+            UIRoot.Singleton.OpenPanel<MemberInfoPanel>();
         }
 
         private void OnStartButtonClick()

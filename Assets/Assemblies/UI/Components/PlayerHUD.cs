@@ -21,6 +21,7 @@ namespace GGJ2024
 
         private void OnHealthChanged(Property<int> obj)
         {
+            // Debug.Log($"OnHealthChanged:{obj.Value}");
             switch (_player.playerEnum)
             {
                 case PlayerEnum.P1:

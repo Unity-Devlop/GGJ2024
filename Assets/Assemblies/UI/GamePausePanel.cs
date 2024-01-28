@@ -9,11 +9,17 @@ namespace GGJ2024
     {
         [SerializeField, UIBind] private Button resumeButton;
         [SerializeField, UIBind] private Button backToHomeButton;
-
+        [SerializeField,UIBind] private Button tutorialButton;
         private void Awake()
         {
             resumeButton.onClick.AddListener(OnResumeButtonClick);
             backToHomeButton.onClick.AddListener(OnBackToHomeButtonClick);
+            tutorialButton.onClick.AddListener(OnTutorialButtonClick);
+        }
+
+        private void OnTutorialButtonClick()
+        {
+            UIRoot.Singleton.OpenPanel<TutorialPanel>();
         }
 
         private void OnBackToHomeButtonClick()

@@ -79,7 +79,7 @@ namespace GGJ2024
             {   //未被击中时
 
                 rg.velocity = transform.parent.GetComponent<Rigidbody2D>().velocity;
-                Debug.Log(transform.parent.GetComponent<Rigidbody2D>());
+                // Debug.Log(transform.parent.GetComponent<Rigidbody2D>());
                 
             }
         
