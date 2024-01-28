@@ -16,17 +16,17 @@ namespace GGJ2024
         [SerializeField] private VideoPlayer _videoPlayer;
         [SerializeField] private Vector2Int textureSize = new Vector2Int(854, 480);
         [SerializeField] private AudioClip _deadClip;
-        private Animator _animator;
+        // private Animator _animator;
 
-        private void Awake()
-        {
-            _animator = GetComponent<Animator>();
-        }
+        // private void Awake()
+        // {
+        //     // _animator = GetComponent<Animator>();
+        // }
 
         public override void OnOpened()
         {
             base.OnOpened();
-            _animator.enabled = true;
+            // _animator.enabled = true;
             RenderTexture videoTexture = new RenderTexture(textureSize.x, textureSize.y, 0);
             
             _videoPlayer.targetTexture = videoTexture;
@@ -34,13 +34,13 @@ namespace GGJ2024
 
             AudioManager.Singleton.PlayAtCamera(_deadClip);
             
-            Timer.Register(2.3f, OnAnimKeyFrame);
+            Timer.Register(4f, OnAnimKeyFrame);
         }
 
         public void OnAnimKeyFrame()
         {
             // Debug.Log("OnAnimKeyFrame");
-            _animator.enabled = false;
+            // _animator.enabled = false;
             // 透明度渐变
             _alphaTweener = DOTween.ToAlpha(() => mask.color, x => mask.color = x, 1, alphaTime);
             // 原神
