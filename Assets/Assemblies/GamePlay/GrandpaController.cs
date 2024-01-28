@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityToolkit;
 
 namespace GGJ2024
 
@@ -45,10 +46,20 @@ namespace GGJ2024
                 }
                
                 rg.velocity = playerVelocity;
+
                 StartCoroutine(DectectIfInScreen());
 
             }
         }
+        /*
+        [Sirenix.OdinInspector.Button]
+        private void Test() {
+            //method for Test
+            UIRoot.Singleton.OpenPanel<KnockOutPanel>();
+
+        }
+        */
+
 
         IEnumerator DectectIfInScreen() {
             while (!IsOutOfScreen()) {
@@ -58,24 +69,37 @@ namespace GGJ2024
             }
 
             Destroy(gameObject);
+
+            UIRoot.Singleton.OpenPanel<KnockOutPanel>();
+            
+
             yield return null;
         
         }
 
-        
+
         public void FixedUpdate()
         {
             if (!IsHit)
             {   //未被击中时
 
                 rg.velocity = transform.parent.GetComponent<Rigidbody2D>().velocity;
-                // Debug.Log(transform.parent.GetComponent<Rigidbody2D>());
-                
             }
         
             
         }
 
+            float height = 2 * distance * Mathf.Tan(camera.fieldOfView / 2 * Mathf.Deg2Rad);
+            float width = height * camera.aspect;
+            Rect rect = new Rect
+            {
+                xMin = cameraPos.x - width / 2,
+                xMax = cameraPos.x + width / 2,
+                yMin = cameraPos.y - height / 2,
+                yMax = cameraPos.y + height / 2
+            };
+            return rect;
+        }
 
     }
 }
