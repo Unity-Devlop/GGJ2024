@@ -14,6 +14,10 @@ namespace GGJ2024
         
         public float noseHitEffectLifeTime = 2f;
         
+        public float oldManP1PlatformMoveSpeed = 100f;
+        
+        public float oldManP2PlatformMoveSpeed = 100f;
+        
         
     }
 }

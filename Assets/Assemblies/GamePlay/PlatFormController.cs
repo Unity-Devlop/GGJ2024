@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,24 @@ namespace GGJ2024
     {
         public Transform startPos;
         public Transform endPos;
-        private new Rigidbody2D rigidbody2D;
+        private Rigidbody2D _rigidbody2D;
+       [field: SerializeField] public PlayerEnum playerEnum { get; private set; }
 
-        public float moveSpeed = 100f;
+        private float moveSpeed
+        {
+            get
+            {
+                switch (playerEnum)
+                {
+                    case PlayerEnum.P1:
+                        return GameManager.Singleton.config.oldManP1PlatformMoveSpeed;
+                    case PlayerEnum.P2:
+                        return GameManager.Singleton.config.oldManP2PlatformMoveSpeed;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
 
 
 
@@ -20,15 +36,7 @@ namespace GGJ2024
 
         void Awake()
         {
-
-
-            rigidbody2D = GetComponent<Rigidbody2D>();
-
-
-
-
-
-
+            _rigidbody2D = GetComponent<Rigidbody2D>();
         }
         private void Update()
         {
@@ -46,10 +54,10 @@ namespace GGJ2024
 
             if (movingUp) {
 
-                rigidbody2D.velocity = new Vector2(0f, movement);
+                _rigidbody2D.velocity = new Vector2(0f, movement);
             } else {
 
-                rigidbody2D.velocity = new Vector2(0f, -movement);
+                _rigidbody2D.velocity = new Vector2(0f, -movement);
             }
 
             if (transform.position.y > Mathf.Max(startPos.position.y, endPos.position.y)) {

@@ -2184,6 +2184,8 @@ MonoBehaviour:
     stopVelocity: 0.3
     bodyHitEffectLifeTime: 1
     noseHitEffectLifeTime: 1
+    oldManP1PlatformMoveSpeed: 100
+    oldManP2PlatformMoveSpeed: 100
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0
@@ -2605,37 +2607,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eda369f7da0adfd4fa13a38fad3822b3, type: 3}
---- !u!1 &1626111816
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1626111817}
-  m_Layer: 0
-  m_Name: MovingGrandpa
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1626111817
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626111816}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.360869, y: -0.35932404, z: -0.04186599}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1657353077 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9134839750972906115, guid: eda369f7da0adfd4fa13a38fad3822b3, type: 3}
@@ -3948,5 +3919,4 @@ SceneRoots:
   - {fileID: 1889273159}
   - {fileID: 996470064}
   - {fileID: 1733802954}
-  - {fileID: 1626111817}
   - {fileID: 5862416}

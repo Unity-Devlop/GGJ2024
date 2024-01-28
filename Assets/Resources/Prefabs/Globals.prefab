@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad47b12109ad4a0dbfcc115660fb201a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 5320617940173955118}
+  <MainCamera>k__BackingField: {fileID: 5320617940173955118}
   <playerLayer>k__BackingField:
     serializedVersion: 2
     m_Bits: 128
@@ -509,7 +509,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dataTables: []
-  _configList: []
+  _configList:
+  - {fileID: 11400000, guid: c9ec1b8915cb6a147a5f5b6df9e07f06, type: 2}
+  datablePath: Assets/Resources/DataTable
+  configPath: Assets/Resources/Config
 --- !u!1 &7581436947311533628
 GameObject:
   m_ObjectHideFlags: 0

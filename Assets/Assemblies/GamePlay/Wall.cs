@@ -6,30 +6,16 @@ namespace GGJ2024
     [RequireComponent(typeof(Collider2D))]
     public class Wall : MonoBehaviour
     {
-        private GameObject audioPrefab;
-        public AudioClip clip;
-        private void Awake()
-        {
-            audioPrefab = Resources.Load<GameObject>("Prefabs/Sound");
-        }
+        [SerializeField] private AudioClip clip;
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            OnhitPlay();
+            OnHitPlay();
         }
 
-        private void OnCollisionExit2D(Collision2D other)
+        private void OnHitPlay()
         {
-            
+            AudioManager.Singleton.Play(clip, transform.position, transform.rotation);
         }
-        private void OnhitPlay()
-        {
-            GameObject audioPlayer = Instantiate(audioPrefab, transform.position, Quaternion.identity);
-            AudioSource audioSource = audioPlayer.GetComponent<AudioSource>();
-            audioSource.clip = clip;
-            audioSource.Play();
-
-        }
-
     }
 }

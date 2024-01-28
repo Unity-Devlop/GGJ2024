@@ -7,21 +7,17 @@ namespace GGJ2024
 {   [RequireComponent (typeof(Rigidbody2D))]
     public class GrandpaController : MonoBehaviour
     {
-        private new Camera camera;
         public float waitSeconds = 1.0f;
         private bool IsHit;
-        Rect rect;
-        Rigidbody2D rg;
-
+        private Rect rect => GlobalManager.Singleton.GetRangeOfCamera2D();
+        private Rigidbody2D rg;
+        private PlatFormController _parentPlatFormController;
+        private PlayerEnum _playerEnum=>_parentPlatFormController.playerEnum;
         private void Awake()
         {
-            GameObject gameObj = GameObject.Find("Main Camera");
-            camera = gameObj.GetComponent<Camera>();
-            rect = GetRangeOfCamera();
+            _parentPlatFormController = GetComponentInParent<PlatFormController>();
             IsHit = false;
             rg = GetComponent<Rigidbody2D>();
-
-
         }
         private bool IsOutOfScreen()
         {
@@ -66,13 +62,7 @@ namespace GGJ2024
         
         }
 
-
-        private void Update()
-        {   
-
-            
-            
-        }
+        
         public void FixedUpdate()
         {
             if (!IsHit)
@@ -86,23 +76,6 @@ namespace GGJ2024
             
         }
 
-        private Rect GetRangeOfCamera()
-        {
-            float fov = camera.fieldOfView;
-            Vector2 cameraPos = camera.transform.position;
-            float aspect = camera.aspect;
-            float distance = transform.position.z - camera.transform.position.z;
 
-            float height = 2 * distance * Mathf.Tan(camera.fieldOfView / 2 * Mathf.Deg2Rad);
-            float width = height * camera.aspect;
-            Rect rect = new Rect
-            {
-                xMin = cameraPos.x - width / 2,
-                xMax = cameraPos.x + width / 2,
-                yMin = cameraPos.y - height / 2,
-                yMax = cameraPos.y + height / 2
-            };
-            return rect;
-        }
     }
 }

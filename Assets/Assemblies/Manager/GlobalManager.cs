@@ -8,7 +8,7 @@ namespace GGJ2024
 {
     public class GlobalManager : MonoSingleton<GlobalManager>
     {
-        [SerializeField] private Camera _mainCamera;
+        [field:SerializeField] public Camera MainCamera { get; private set; }
         protected override bool DontDestroyOnLoad() => true;
         [field: SerializeField] public LayerMask playerLayer { get; private set; }
         [field: SerializeField] public LayerMask noseLayer { get; private set; }
@@ -26,7 +26,7 @@ namespace GGJ2024
         
         public static Vector3 ScreenToWorldPoint(Vector3 screenPos)
         {
-            return SingletonNullable._mainCamera.ScreenToWorldPoint(screenPos);
+            return SingletonNullable.MainCamera.ScreenToWorldPoint(screenPos);
         }
 
         public void ToHome()
@@ -35,6 +35,23 @@ namespace GGJ2024
             UIRoot.Singleton.CloseAll();
             SceneManager.LoadScene("Home");
             UIRoot.Singleton.OpenPanel<HomePanel>();
+        }
+        
+        public Rect GetRangeOfCamera2D()
+        {
+            Vector2 cameraPos = MainCamera.transform.position;
+            float distance = transform.position.z - MainCamera.transform.position.z;
+
+            float height = 2 * distance * Mathf.Tan(MainCamera.fieldOfView / 2 * Mathf.Deg2Rad);
+            float width = height * MainCamera.aspect;
+            Rect rect = new Rect
+            {
+                xMin = cameraPos.x - width / 2,
+                xMax = cameraPos.x + width / 2,
+                yMin = cameraPos.y - height / 2,
+                yMax = cameraPos.y + height / 2
+            };
+            return rect;
         }
     }
 }
