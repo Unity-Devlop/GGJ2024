@@ -9,61 +9,90 @@ namespace GGJ2024
     public class KnockOutPanel : UIPanel
     {
         [SerializeField] private Image KnockOutImage;
-        [SerializeField] private float fadeInDuration = 1f; // æ¸å˜æ˜¾ç¤ºçš„æ€»æ—¶é—´
+        [SerializeField] private float fadeInDuration = 1f; // ½¥±äÏÔÊ¾µÄ×ÜÊ±¼ä
         [SerializeField] private Image mask;
         public float showingSpeed = 5f;
+
+    
+        
 
 
         public override void OnOpened()
         {
             base.OnOpened();
-            AudioManager.Singleton.StopBGM();
-            AudioManager.Singleton.PlayAtCamera(GameManager.Singleton.globalConfig.knockAudio);
+
+
+
             FadeIn();
         }
 
-        // æ¸å˜æ˜¾ç¤ºæ–¹æ³•
+        // ½¥±äÏÔÊ¾·½·¨
         private void FadeIn()
         {
             StartCoroutine(FadeInCoroutine());
             StartCoroutine(FillRange());
         }
 
-        // æ¸å˜æ˜¾ç¤ºçš„åç¨‹
+        // ½¥±äÏÔÊ¾µÄĞ­³Ì
         private IEnumerator FadeInCoroutine()
+            
         {
-            // Debug.Log("æ¸å˜å¯åŠ¨");
-            // è·å–é¢æ¿ä¸Šçš„Imageç»„ä»¶
+            Debug.Log("½¥±äÆô¶¯");
+            // »ñÈ¡Ãæ°åÉÏµÄImage×é¼ş
             Image blackImage = transform.GetChild(0).GetComponent<Image>();
             if (blackImage == null)
             {
-                // Debug.LogWarning("Panel has no Image component for fading.");
+                Debug.LogWarning("Panel has no Image component for fading.");
                 yield break;
             }
 
             float elapsedTime = 0f;
-
+            
 
             while (elapsedTime < fadeInDuration)
             {
+                
                 float t = elapsedTime / fadeInDuration;
                 Color newColor = blackImage.color;
-                newColor.a = Mathf.Lerp(0f, 0.7f, t); // æ¸å˜é€æ˜åº¦ä»0åˆ°1
+                newColor.a = Mathf.Lerp(0f, 0.7f, t); // ½¥±äÍ¸Ã÷¶È´Ó0µ½1
                 blackImage.color = newColor;
-
+                
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
         }
 
 
-        //FillAmountå®ç°
-        IEnumerator FillRange()
-        {
+        //ÊµÏÖ¶¯Ì¬ÕÚÕÖ
+        IEnumerator MoveLayerMask() {
+            
+            RectTransform maskRect = mask.GetComponent<RectTransform>();
+            RectTransform KnockOutRect = KnockOutImage.GetComponent<RectTransform>();
+            maskRect.sizeDelta = new Vector2(0, KnockOutRect.sizeDelta.y);
+            maskRect.anchoredPosition = Vector2.zero;
+
+
+            while ((maskRect.rect.width) < KnockOutRect.rect.width) {
+                
+                Debug.Log("maskRect.rect.width: " + maskRect.rect.width);
+                Debug.Log("KnockOutRect.rect.width: " + KnockOutRect.rect.width);
+
+                maskRect.sizeDelta = maskRect.sizeDelta  + new Vector2(showingSpeed * Time.deltaTime, 0);
+               
+                yield return null;
+
+
+            }
+                yield return null;
+        }
+
+        //FillAmountÊµÏÖ
+        IEnumerator FillRange() {
+
+            
             Image image = KnockOutImage.GetComponent<Image>();
-            while (image.fillAmount < 1)
-            {
-                // Debug.Log("Inloop");
+            while (image.fillAmount < 1) {
+                Debug.Log("Inloop");
                 image.fillAmount += showingSpeed * Time.deltaTime;
                 yield return null;
             }
@@ -77,6 +106,11 @@ namespace GGJ2024
             GameManager.Singleton.GameOver();
 
             yield return null;
+
+
         }
+
+
+        
     }
 }
