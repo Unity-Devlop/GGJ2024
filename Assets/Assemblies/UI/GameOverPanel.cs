@@ -37,6 +37,14 @@ namespace GGJ2024
             Timer.Register(4f, OnAnimKeyFrame);
         }
 
+        private void Update()
+        {
+            if (!InputManager.Singleton.input.Global.Esc.WasPerformedThisFrame()) return;
+            _alphaTweener.Kill();
+            _timer?.Cancel();
+            GlobalManager.Singleton.ToHome();
+        }
+
         public void OnAnimKeyFrame()
         {
             // Debug.Log("OnAnimKeyFrame");
@@ -47,6 +55,7 @@ namespace GGJ2024
             _alphaTweener.onComplete += PlayGenshin;
         }
 
+        private Timer _timer;
         private void PlayGenshin()
         {
             // mask.gameObject.SetActive(false);
@@ -56,7 +65,7 @@ namespace GGJ2024
             _videoPlayer.time = start;
             _videoPlayer.Play();
             // Debug.Log(_videoPlayer.clip.length);
-            Timer.Register((float)_videoPlayer.clip.length - start, () => { GlobalManager.Singleton.ToHome(); });
+            _timer = Timer.Register((float)_videoPlayer.clip.length - start, () => { GlobalManager.Singleton.ToHome(); });
         }
 
         public override void OnClosed()
@@ -64,6 +73,7 @@ namespace GGJ2024
             _videoPlayer.Stop();
             _videoPlayer.gameObject.SetActive(false);
             _alphaTweener?.Kill();
+            _timer?.Cancel();
             // mask.gameObject.SetActive(true);
             mask.color = new Color(1, 1, 1, 0);
             
