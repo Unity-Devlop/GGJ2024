@@ -187,18 +187,21 @@ namespace GGJ2024
                 
             }, onUpdate: f =>
             {
-                if (f % 0.2f < 0.1f)
+                // Debug.Log(f);
+                // 每 0.2f 秒闪烁一次
+                if (f % GameManager.Singleton.config.flickerInterval < 0.1f)
                 {
                     _body.color = origin;
                     _eyeVisual.color = origin;
                     _noseVisual.color = origin;
-                    
+                    // Debug.Log(origin);
                 }
                 else
                 {
                     _body.color = newColor;
                     _eyeVisual.color = newColor;
                     _noseVisual.color = newColor;
+                    // Debug.Log(newColor);
                 }
             });
         }

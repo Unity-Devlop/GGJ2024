@@ -10,7 +10,7 @@ namespace GGJ2024
         public float attackingFacingLerpTime = 0.03f; // 攻击时转向插值时间 
 
         public int health = 3;
-        public float invincibleTime = 1f; // 无敌时间
+        public float invincibleTime = 2f; // 无敌时间
         
         public float maxVelocityX = 10f; // 最大速度X
         public float maxVelocityY = 10f; // 最大速度Y
