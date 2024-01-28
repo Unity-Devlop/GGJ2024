@@ -28,6 +28,8 @@ namespace GGJ2024
             // GameStart();
 
             gameState = GameState.Waiting;
+            SpawnPlayer(PlayerEnum.P1);
+            SpawnPlayer(PlayerEnum.P2);
             UIRoot.Singleton.CloseAll();
             UIRoot.Singleton.OpenPanel<GamePanel>();
         }
@@ -57,11 +59,6 @@ namespace GGJ2024
         public void GameStart()
         {
             AudioManager.Singleton.PlayGameBGM();
-
-            // todo 生成玩家
-            SpawnPlayer(PlayerEnum.P1);
-            SpawnPlayer(PlayerEnum.P2);
-
             gameState = GameState.Playing;
         }
 
