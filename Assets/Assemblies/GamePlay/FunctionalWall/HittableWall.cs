@@ -20,7 +20,7 @@ namespace GGJ2024
 
         private int hitCount = 0;
 
-        [Header ("ÊÜ»÷Ê±ÁîÇ½Ëğ»µµÄËÙ¶ÈãĞÖµ")]
+        [Header ("å—å‡»æ—¶ä»¤å¢™æŸåçš„é€Ÿåº¦é˜ˆå€¼")]
         public float hittedVelocity = 10f;
 
 
@@ -49,23 +49,23 @@ namespace GGJ2024
         {
             
             if (invincibleTimer > invincibleTime) {
-                //ÅĞ¶ÏÅö×²µÄÊÇplayerÇÒÍæ¼ÒËÙ¶ÈµÄÄ£´óÓÚãĞÖµ
+                //åˆ¤æ–­ç¢°æ’çš„æ˜¯playerä¸”ç©å®¶é€Ÿåº¦çš„æ¨¡å¤§äºé˜ˆå€¼
                 if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > hittedVelocity)
                 {
                     
                     StartCoroutine(showMap());
                     hitCount++;
 
-                    //²¥·ÅÒôÀÖ
-                    OnhitPlay();
+                    //æ’­æ”¾éŸ³ä¹
+                    OnHitPlay();
 
-                    //¼ÆÊ±Æ÷¹é0
+                    //è®¡æ—¶å™¨å½’0
                     invincibleTimer = 0f;
 
 
                 }
 
-                //ÅĞ¶ÏÊÜ»÷´ÎÊı
+                //åˆ¤æ–­å—å‡»æ¬¡æ•°
                 if (hitCount > MaxhitCount)
                 {
                     Destroy(gameObject);
@@ -86,20 +86,8 @@ namespace GGJ2024
 
             invincibleTimer += Time.deltaTime;
         }
-        /*
-        IEnumerator FadeOut()
-        {
-            if (GetComponent<Renderer>().material.color.a > 0)
-            {
-                Color currentColor = GetComponent<Renderer>().material.color;
-                float newAlpha = currentColor.a * 0.5f;
-                GetComponent<Renderer>().material.color = new Color(currentColor.r, currentColor.g, currentColor.b, newAlpha);
-                yield return null;
-            }
-        }
-        */
-
-        //ÊÜ»÷ºóµØÍ¼±ä»¯
+        
+        //å—å‡»ååœ°å›¾å˜åŒ–
         IEnumerator showMap() {
 
             if (spriteStack.Count != 0)
@@ -126,7 +114,7 @@ namespace GGJ2024
         
         }
 
-        private void OnhitPlay() {
+        private void OnHitPlay() {
             AudioManager.Singleton.Play(clip, transform.position, Quaternion.identity);
         }
         
