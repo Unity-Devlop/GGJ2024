@@ -26,3 +26,4 @@ MonoBehaviour:
   gameBGM: {fileID: 8300000, guid: 34966c8cb3e4b3341b924f0eabeb1764, type: 3}
   teleportClip: {fileID: 8300000, guid: 8fca3646fbe7ecb4c9159804ba0d6030, type: 3}
   stopWallClip: {fileID: 8300000, guid: be4d26edc990db04189d8939468e405b, type: 3}
+  knockAudio: {fileID: 8300000, guid: dbebde07a5a0d314a8408920947096bc, type: 3}
