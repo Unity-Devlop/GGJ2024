@@ -8,5 +8,7 @@ namespace GGJ2024
         public static readonly int playerIdleAnim = Animator.StringToHash("idle");
         public static readonly int playerHitAnim = Animator.StringToHash("playerHit");
         public static readonly int noseHitAnim = Animator.StringToHash("noseHit");
+        
+        public static readonly int oldManFallAnim = Animator.StringToHash("fall");
     }
 }

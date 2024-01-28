@@ -15,7 +15,9 @@ namespace GGJ2024
         [SerializeField] private float alphaTime = 3f;
         [SerializeField] private VideoPlayer _videoPlayer;
         [SerializeField] private Vector2Int textureSize = new Vector2Int(854, 480);
-
+        [SerializeField] private AudioClip _deadClip;
+        [SerializeField] private Animator _animator;
+        
         public override void OnOpened()
         {
             base.OnOpened();
@@ -25,6 +27,12 @@ namespace GGJ2024
             _videoPlayer.GetComponent<RawImage>().texture = videoTexture;
 
             // todo 老头动画
+            _animator.Play(Global.oldManFallAnim);
+            AudioManager.Singleton.PlayAtCamera(_deadClip);
+        }
+
+        public void OnAnimKeyFrame()
+        {
             // 透明度渐变
             _alphaTweener = DOTween.ToAlpha(() => mask.color, x => mask.color = x, 1, alphaTime);
             // 原神
