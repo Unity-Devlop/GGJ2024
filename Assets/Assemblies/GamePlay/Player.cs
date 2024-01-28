@@ -179,6 +179,8 @@ namespace GGJ2024
             _noseVisual.color = newColor;
 
             // todo 闪烁以表示无敌
+            float curTimer = 0;
+            float interval = config.flashInterval;
             Timer.Register(config.invincibleTime, () =>
             {
                 State = PlayerState.Normal;
@@ -188,21 +190,22 @@ namespace GGJ2024
             }, onUpdate: f =>
             {
                 // 每 0.2f 秒闪烁一次
-
-                if (f % GameManager.Singleton.config.flickerInterval < 0.1f)
-                {
-                    _body.color = origin;
-                    _eyeVisual.color = origin;
-                    _noseVisual.color = origin;
-                    // Debug.Log(origin);
-                }
-                else
+                curTimer += config.invincibleTime - f;
+                if (!(curTimer > interval)) return;
+                curTimer = 0;
+                if (_body.color == origin)
                 {
                     _body.color = newColor;
                     _eyeVisual.color = newColor;
                     _noseVisual.color = newColor;
-                    // Debug.Log(newColor);
                 }
+                else
+                {
+                    _body.color = origin;
+                    _eyeVisual.color = origin;
+                    _noseVisual.color = origin;
+                }
+
             });
         }
 

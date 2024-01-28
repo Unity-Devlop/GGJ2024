@@ -19,6 +19,5 @@ namespace GGJ2024
         
         public float oldManP2PlatformMoveSpeed = 100f;
         
-        public float flickerInterval = 0.2f;
     }
 }
