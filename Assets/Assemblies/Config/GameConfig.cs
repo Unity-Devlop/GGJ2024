@@ -10,18 +10,19 @@ namespace GGJ2024
         public PlayerConfig p2Config;
 
         public float stopVelocity = 0.3f;
-        
+
         public float bodyHitEffectLifeTime = 2f;
-        
+
         public float noseHitEffectLifeTime = 2f;
-        
+
         public float oldManP1PlatformMoveSpeed = 100f;
-        
+
         public float oldManP2PlatformMoveSpeed = 100f;
-        
+
         public float stopWallProtectTime = 1f;
-        
+
         public float normalWallProtectTime = 1f;
-        
+
+        public float brokenWallVelocity = 1f;
     }
 }

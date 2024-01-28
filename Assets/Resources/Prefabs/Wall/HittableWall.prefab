@@ -171,12 +171,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b073557fd20a22641824d604e8ecb090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxhitCount: 3
-  shower: {fileID: 0}
+  maxHitCount: 3
+  visual: {fileID: 0}
   clip: {fileID: 8300000, guid: 2d583ccac9f05834a9e380e26610250a, type: 3}
   invincibleTime: 0.5
-  hittedVelocity: 1
-  sprites:
-  - {fileID: 21300000, guid: b5ca86562deb36d41a5865310f4c1d91, type: 3}
-  - {fileID: 21300000, guid: 639387fff67654c48ad069ec9e1cd5ee, type: 3}
-  - {fileID: 21300000, guid: 22ad8ac16212464408d742adecc67de2, type: 3}
+  fullSprite: {fileID: 21300000, guid: 22ad8ac16212464408d742adecc67de2, type: 3}
+  brokenSprite: {fileID: 21300000, guid: 639387fff67654c48ad069ec9e1cd5ee, type: 3}
+  brokenSprite2: {fileID: 21300000, guid: b5ca86562deb36d41a5865310f4c1d91, type: 3}

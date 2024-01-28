@@ -446,6 +446,10 @@ PrefabInstance:
       propertyPath: shower
       value: 
       objectReference: {fileID: 197875447}
+    - target: {fileID: 4772373925873290566, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
+      propertyPath: visual
+      value: 
+      objectReference: {fileID: 197875449}
     - target: {fileID: 7427835788485032558, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
       propertyPath: m_Name
       value: HittableWall (2)
@@ -1128,6 +1132,10 @@ PrefabInstance:
       propertyPath: shower
       value: 
       objectReference: {fileID: 2014109940}
+    - target: {fileID: 4772373925873290566, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
+      propertyPath: visual
+      value: 
+      objectReference: {fileID: 2014109942}
     - target: {fileID: 7427835788485032558, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
       propertyPath: m_Name
       value: HittableWall (3)
@@ -1374,6 +1382,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 952185437}
     m_Modifications:
     - target: {fileID: 1367607552375908841, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1367607552375908841, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -1429,6 +1441,10 @@ PrefabInstance:
       propertyPath: shower
       value: 
       objectReference: {fileID: 373534987}
+    - target: {fileID: 4772373925873290566, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
+      propertyPath: visual
+      value: 
+      objectReference: {fileID: 373534989}
     - target: {fileID: 7427835788485032558, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
       propertyPath: m_Name
       value: HittableWall
@@ -2134,6 +2150,10 @@ PrefabInstance:
       propertyPath: shower
       value: 
       objectReference: {fileID: 1850749127}
+    - target: {fileID: 4772373925873290566, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
+      propertyPath: visual
+      value: 
+      objectReference: {fileID: 1850749129}
     - target: {fileID: 7427835788485032558, guid: b4bf5811fba8bb044abe68e8f20261bb, type: 3}
       propertyPath: m_Name
       value: HittableWall (1)
@@ -2287,6 +2307,7 @@ MonoBehaviour:
     oldManP2PlatformMoveSpeed: 100
     stopWallProtectTime: 1
     normalWallProtectTime: 1
+    brokenWallVelocity: 1
 --- !u!4 &1527258074
 Transform:
   m_ObjectHideFlags: 0

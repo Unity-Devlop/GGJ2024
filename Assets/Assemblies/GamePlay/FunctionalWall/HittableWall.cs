@@ -1,122 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityToolkit;
 
 namespace GGJ2024
 {
     [RequireComponent(typeof(Collider2D))]
-
-
     public class HittableWall : MonoBehaviour
     {
-        public int MaxhitCount = 3;
-
-        public GameObject shower;
+        [SerializeField] private int maxHitCount = 3;
+        public SpriteRenderer visual;
         public AudioClip clip;
         public float invincibleTime = 0.5f;
-        private float invincibleTimer = 0f;
+        private bool _canHit = true;
+        private int _hitCount;
+        public float BrokenVelocity => GameManager.Singleton.config.brokenWallVelocity;
 
+        [SerializeField] private Sprite fullSprite;
+        [SerializeField] private Sprite brokenSprite;
+        [SerializeField] private Sprite brokenSprite2;
 
-
-        private int hitCount = 0;
-
-        [Header ("受击时令墙损坏的速度阈值")]
-        public float hittedVelocity = 10f;
-
-
-
-        private Stack<Sprite> spriteStack = new Stack<Sprite>();
-        public Sprite[] sprites;
 
         private void Awake()
         {
-
-
-            
-            for (int i = 0; i < sprites.Length; i++)
-            {
-                spriteStack.Push(sprites[i]);
-            }
-            
-            SpriteRenderer rd = shower.GetComponent<SpriteRenderer>();
-
-            rd.sprite = spriteStack.Pop();
-  
-
+            visual.sprite = fullSprite;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            
-            if (invincibleTimer > invincibleTime) {
-                //判断碰撞的是player且玩家速度的模大于阈值
-                if (collision.gameObject.CompareTag("Player") && collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude > hittedVelocity)
-                {
-                    
-                    StartCoroutine(showMap());
-                    hitCount++;
+            if (!_canHit) return;
 
-                    //播放音乐
-                    OnHitPlay();
-
-                    //计时器归0
-                    invincibleTimer = 0f;
-
-
-                }
-
-                //判断受击次数
-                if (hitCount > MaxhitCount)
-                {
-                    Destroy(gameObject);
-                }
-
-
-
-                
-                
-            }
-
-
-        }
-
-
-        private void Update()
-        {
-
-            invincibleTimer += Time.deltaTime;
-        }
-        
-        //受击后地图变化
-        IEnumerator showMap() {
-
-            if (spriteStack.Count != 0)
+            //判断碰撞的是player且玩家速度的模大于阈值
+            if (collision.gameObject.CompareTag("Player") &&
+                collision.rigidbody.velocity.magnitude > BrokenVelocity)
             {
-                Sprite map = spriteStack.Pop();
-                if (shower.GetComponent<SpriteRenderer>() != null)
-                {
-                    SpriteRenderer rd = shower.GetComponent<SpriteRenderer>();
-                    rd.sprite = map;
-                }
-
-
-            }
-            else {
-
-                if (shower.GetComponent<SpriteRenderer>() != null)
-                {
-                    SpriteRenderer rd = shower.GetComponent<SpriteRenderer>();
-                    rd.sprite = null;
-                }
+                _hitCount++;
+                UpdateVisual();
+                _canHit = false;
+                //播放音乐
+                AudioManager.Singleton.Play(clip, transform.position, Quaternion.identity);
+                Timer.Register(invincibleTime, () => { _canHit = true; });
             }
 
-            yield return null;
-        
+            //判断受击次数
+            if (_hitCount > maxHitCount)
+            {
+                Destroy(gameObject);
+                Destroy(visual.gameObject);
+            }
         }
 
-        private void OnHitPlay() {
-            AudioManager.Singleton.Play(clip, transform.position, Quaternion.identity);
+        private void UpdateVisual()
+        {
+            if (_hitCount > maxHitCount / 3 * 1)
+            {
+                visual.sprite = brokenSprite;
+            }
+
+            if (_hitCount > maxHitCount / 3 * 2)
+            {
+                visual.sprite = brokenSprite2;
+            }
         }
-        
     }
 }
