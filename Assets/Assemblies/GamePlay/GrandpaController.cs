@@ -76,7 +76,7 @@ namespace GGJ2024
         public void FixedUpdate()
         {
             if (!IsHit)
-            {   //Î´±»»÷ÖÐÊ±
+            {   //æœªè¢«å‡»ä¸­æ—¶
 
                 rg.velocity = transform.parent.GetComponent<Rigidbody2D>().velocity;
                 Debug.Log(transform.parent.GetComponent<Rigidbody2D>());
