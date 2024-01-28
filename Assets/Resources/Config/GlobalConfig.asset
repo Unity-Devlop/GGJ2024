@@ -17,5 +17,11 @@ MonoBehaviour:
   playerBeHitClip: {fileID: 8300000, guid: abcaf0041e7b7d142a7c31c8c12d4679, type: 3}
   playerDeadClip: {fileID: 8300000, guid: a756caf8e53e15a4ea60396a59865cf6, type: 3}
   playerBirthClip: {fileID: 8300000, guid: d6f098ed75bd35f48afe76c6b1af8189, type: 3}
+  playerCompleteDeadClip: {fileID: 0}
   p1Controller: {fileID: 9100000, guid: 372a7004119721c479b20412fc9fd740, type: 2}
   p2Controller: {fileID: 9100000, guid: 14741b5f045e3ed428d1fc6eb7a6f97f, type: 2}
+  countDownClip: {fileID: 8300000, guid: 0caddd15a54b8fe4f89d837379d83c9f, type: 3}
+  countOverClip: {fileID: 8300000, guid: dc08481d4dbfc26449739e576f82f8bb, type: 3}
+  homeBGM: {fileID: 8300000, guid: b9cb96d192973a24f9915c4a62f0eae5, type: 3}
+  gameBGM: {fileID: 8300000, guid: 34966c8cb3e4b3341b924f0eabeb1764, type: 3}
+  genshinClip: {fileID: 32900000, guid: a7262641a4772964a90250bf96dc9385, type: 3}

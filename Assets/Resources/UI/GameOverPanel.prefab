@@ -309,7 +309,6 @@ MonoBehaviour:
   _videoPlayer: {fileID: 5641480516674079937}
   textureSize: {x: 854, y: 480}
   _deadClip: {fileID: 8300000, guid: 66e82e0d20d22a54aa1380b5e14c1034, type: 3}
-  _animator: {fileID: 9119693112171564456}
 --- !u!95 &9119693112171564456
 Animator:
   serializedVersion: 5
@@ -412,7 +411,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7737238999855448005}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 471dec939fe3af2419fdd45499cf3f22, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 685b9317e85daa149a2f7d018e94101b, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}

@@ -187,8 +187,8 @@ namespace GGJ2024
                 
             }, onUpdate: f =>
             {
-                // Debug.Log(f);
                 // 每 0.2f 秒闪烁一次
+                
                 if (f % GameManager.Singleton.config.flickerInterval < 0.1f)
                 {
                     _body.color = origin;

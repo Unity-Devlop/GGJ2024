@@ -8,12 +8,17 @@ namespace GGJ2024
 {
     public class MemberInfoPanel : UIPanel
     {
-        [SerializeField, UIBind] private Button escButton;
-
         private void Awake()
         {
-            escButton.onClick.AddListener(CloseSelf);
-            InputManager.Singleton.input.Global.Esc.performed+=OnEsc;
+            InputManager.Singleton.input.Global.Esc.performed += OnEsc;
+        }
+
+        private void Update()
+        {
+            if (Keyboard.current.anyKey.wasPressedThisFrame)
+            {
+                OnEsc(default);
+            }
         }
 
         private void OnEsc(InputAction.CallbackContext obj)

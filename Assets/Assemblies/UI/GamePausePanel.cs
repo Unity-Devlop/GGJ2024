@@ -33,5 +33,17 @@ namespace GGJ2024
             GameManager.Singleton.Resume();
             CloseSelf();
         }
+
+        public override void OnOpened()
+        {
+            base.OnOpened();
+            Time.timeScale = 0;
+        }
+
+        public override void OnClosed()
+        {
+            base.OnClosed();
+            Time.timeScale = 1;
+        }
     }
 }

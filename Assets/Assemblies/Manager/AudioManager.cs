@@ -7,7 +7,7 @@ namespace GGJ2024
     public class AudioManager : MonoSingleton<AudioManager>
     {
         private AudioSource _global;
-        public AudioClip gameBGM;
+        // public AudioClip gameBGM;
         public AudioClip btnClickSound; // todo
 
         public GameObject audioPrefab;
@@ -20,13 +20,13 @@ namespace GGJ2024
             _global = GetComponent<AudioSource>();
         }
 
-        public void PlayGameBGM()
+        public void PlayBGM(AudioClip clip)
         {
-            _global.clip = gameBGM;
+            _global.clip = clip;
             _global.Play();
         }
 
-        public void StopGameBGM()
+        public void StopBGM()
         {
             _global.Stop();
         }

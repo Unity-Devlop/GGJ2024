@@ -38,7 +38,7 @@ namespace GGJ2024
 
         public void Unbind()
         {
-            _player.currentHealth.UnRegister(OnHealthChanged);
+            // _player.currentHealth.UnRegister(OnHealthChanged);
         }
     }
 }

@@ -42,14 +42,22 @@ namespace GGJ2024
                 btnRectTransform.localPosition = buttonPos1.localPosition;
                 dogImage.sprite = dog1;
             }
-            else if (curBtnCnt == 3)
+            else if (curBtnCnt >=3)
             {
-                Timer.Register(0.3f, ()=>GlobalManager.Singleton.ToGame());
+                Timer.Register(0.3f, () => { GlobalManager.Singleton.ToGame(); });
             }
+        }
+        
+        public override void OnOpened()
+        {
+            base.OnOpened();
+            curBtnCnt = 0;
+            AudioManager.Singleton.PlayBGM(DataManager.Singleton.Get<GlobalConfig>().homeBGM);
         }
 
         public override void OnClosed()
         {
+            AudioManager.Singleton.StopBGM();
             curBtnCnt = 0;
             btnRectTransform.localPosition = buttonPos1.localPosition;
             dogImage.sprite = dog1;

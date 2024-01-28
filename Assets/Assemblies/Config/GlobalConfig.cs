@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Video;
 using UnityToolkit;
 
 namespace GGJ2024
@@ -13,8 +14,18 @@ namespace GGJ2024
         public AudioClip playerBeHitClip;
         public AudioClip playerDeadClip;
         public AudioClip playerBirthClip;
+        
+        public AudioClip playerCompleteDeadClip;
+        
         public RuntimeAnimatorController p1Controller;
         public RuntimeAnimatorController p2Controller;
         public AudioClip countDownClip;
+        public AudioClip countOverClip;
+        
+        public AudioClip homeBGM;
+        
+        public AudioClip gameBGM;
+        
+        // public VideoClip genshinClip;
     }
 }
