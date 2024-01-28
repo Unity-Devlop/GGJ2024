@@ -172,9 +172,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2840869216108064147, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: m_VolumeTrigger
+      value: 
+      objectReference: {fileID: 1915833237}
+    - target: {fileID: 2840869216108064147, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
       propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 1184607304}
+    - target: {fileID: 5320617940173955118, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5320617940173955118, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5320617940173955118, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5320617940173955118, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379220152463540006, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+      propertyPath: gameBGM
+      value: 
+      objectReference: {fileID: 8300000, guid: 237fd839007d2f24f8b31c18f2b3ebcd, type: 3}
     - target: {fileID: 8754931811061686471, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
       propertyPath: m_Name
       value: Globals
@@ -261,6 +285,11 @@ PrefabInstance:
 Camera:
   m_CorrespondingSourceObject: {fileID: 239112774878818453, guid: 40efa0d53f471c44e973a0eb13c1ab39, type: 3}
   m_PrefabInstance: {fileID: 545579443}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1915833237 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8799612659105727690, guid: 65ee11f47eb65f545b785db4ba599a8f, type: 3}
+  m_PrefabInstance: {fileID: 158907002}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

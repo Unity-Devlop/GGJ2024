@@ -26,7 +26,6 @@ namespace GGJ2024
             // config = JsonManager.LoadJsonFromStreamingAssets<GameConfig>("Config/GameConfig.json");
             // debug
             // GameStart();
-
             gameState = GameState.Waiting;
             SpawnPlayer(PlayerEnum.P1);
             SpawnPlayer(PlayerEnum.P2);
@@ -46,20 +45,19 @@ namespace GGJ2024
         {
             UIRoot.Singleton.ClosePanel<GamePausePanel>();
             gameState = GameState.Playing;
-            Time.timeScale = 1;
         }
 
         public void Pause()
         {
             UIRoot.Singleton.OpenPanel<GamePausePanel>();
             gameState = GameState.Pause;
-            Time.timeScale = 0;
         }
 
         public void GameStart()
         {
-            AudioManager.Singleton.PlayGameBGM();
+            AudioManager.Singleton.PlayBGM(globalConfig.gameBGM);
             gameState = GameState.Playing;
+            // Debug.Log("GameStart");
         }
 
         private void SpawnPlayer(PlayerEnum playerEnum)
@@ -92,7 +90,7 @@ namespace GGJ2024
         [Sirenix.OdinInspector.Button]
         public void GameOver()
         {
-            AudioManager.Singleton.StopGameBGM();
+            AudioManager.Singleton.StopBGM();
             gameState = GameState.GameOver;
             
             UIRoot.Singleton.CloseAll();
@@ -103,16 +101,25 @@ namespace GGJ2024
         {
             GetPlayer(playerEnum, out Player target, out PlayerConfig playerConfig);
 
+
+            
             AudioManager.Singleton.Play(globalConfig.playerDeadClip, target.transform.position,
                 target.transform.rotation);
 
             target.gameObject.SetActive(false); // todo
-
+            
             if (target.currentHealth.Value <= 0)
             {
                 // GameOver();
                 return;
             }
+            
+            if (target.State == PlayerState.WaitingForRespawn)
+            {
+                return;
+            }
+            
+            target.State = PlayerState.WaitingForRespawn;
 
             target.currentHealth.Value--;
             Vector3 spawnPoint;

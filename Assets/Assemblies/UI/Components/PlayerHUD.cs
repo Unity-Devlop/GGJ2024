@@ -25,7 +25,6 @@ namespace GGJ2024
             switch (_player.playerEnum)
             {
                 case PlayerEnum.P1:
-                    
                     _lifeText.text = $"x{obj.Value}";
                     break;
                 case PlayerEnum.P2:
@@ -38,7 +37,7 @@ namespace GGJ2024
 
         public void Unbind()
         {
-            _player.currentHealth.UnRegister(OnHealthChanged);
+            // _player.currentHealth.UnRegister(OnHealthChanged);
         }
     }
 }

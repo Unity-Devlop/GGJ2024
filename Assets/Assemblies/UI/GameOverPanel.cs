@@ -16,23 +16,31 @@ namespace GGJ2024
         [SerializeField] private VideoPlayer _videoPlayer;
         [SerializeField] private Vector2Int textureSize = new Vector2Int(854, 480);
         [SerializeField] private AudioClip _deadClip;
-        [SerializeField] private Animator _animator;
-        
+        private Animator _animator;
+
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
         public override void OnOpened()
         {
             base.OnOpened();
+            _animator.enabled = true;
             RenderTexture videoTexture = new RenderTexture(textureSize.x, textureSize.y, 0);
             
             _videoPlayer.targetTexture = videoTexture;
             _videoPlayer.GetComponent<RawImage>().texture = videoTexture;
 
-            // todo 老头动画
-            _animator.Play(Global.oldManFallAnim);
             AudioManager.Singleton.PlayAtCamera(_deadClip);
+            
+            Timer.Register(2.3f, OnAnimKeyFrame);
         }
 
         public void OnAnimKeyFrame()
         {
+            // Debug.Log("OnAnimKeyFrame");
+            _animator.enabled = false;
             // 透明度渐变
             _alphaTweener = DOTween.ToAlpha(() => mask.color, x => mask.color = x, 1, alphaTime);
             // 原神
@@ -47,6 +55,7 @@ namespace GGJ2024
             float start = 0;//13.5f;
             _videoPlayer.time = start;
             _videoPlayer.Play();
+            // Debug.Log(_videoPlayer.clip.length);
             Timer.Register((float)_videoPlayer.clip.length - start, () => { GlobalManager.Singleton.ToHome(); });
         }
 

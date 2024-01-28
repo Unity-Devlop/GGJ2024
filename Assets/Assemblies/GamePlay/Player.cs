@@ -27,7 +27,7 @@ namespace GGJ2024
 
         // todo state param
         [field: SerializeField, Sirenix.OdinInspector.ReadOnly]
-        private PlayerState _state = PlayerState.Normal;
+        public PlayerState State { get;  set; } = PlayerState.Normal;
 
         public Property<int> currentHealth;
 
@@ -52,6 +52,7 @@ namespace GGJ2024
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
             _animator.runtimeAnimatorController = controller;
         }
 
@@ -65,7 +66,7 @@ namespace GGJ2024
 
             LimitSpeed();
 
-            if (InputManager.Singleton.WasNosePerformThisFrame(playerEnum) && _state != PlayerState.Attacking)
+            if (InputManager.Singleton.WasNosePerformThisFrame(playerEnum) && State != PlayerState.Attacking)
             {
                 // todo 改成按住就伸长鼻子?
                 Attack();
@@ -86,7 +87,7 @@ namespace GGJ2024
         private void UpdateAnim()
         {
             int curAnimHash = _animator.GetCurrentAnimatorStateInfo(0).shortNameHash;
-            
+
             if (_rb2D.velocity.magnitude > GameManager.Singleton.config.stopVelocity &&
                 curAnimHash != Global.playerMoveAnim)
             {
@@ -95,13 +96,13 @@ namespace GGJ2024
                 _animator.SetBool(Global.playerIdleAnim, false);
                 _animator.SetBool(Global.playerMoveAnim, true); // 速度够大则 move
             }
-            
+
 
             if (_rb2D.velocity.magnitude <= GameManager.Singleton.config.stopVelocity &&
                 curAnimHash != Global.playerIdleAnim)
             {
-                _animator.SetBool(Global.playerMoveAnim,false);
-                _animator.SetBool(Global.playerIdleAnim,true); // 速度太小则 idle
+                _animator.SetBool(Global.playerMoveAnim, false);
+                _animator.SetBool(Global.playerIdleAnim, true); // 速度太小则 idle
             }
         }
 
@@ -122,7 +123,7 @@ namespace GGJ2024
         private void LerpFacing(float targetRotation)
         {
             float lerpTime;
-            if (_state == PlayerState.Attacking)
+            if (State == PlayerState.Attacking)
             {
                 // Debug.Log($"Attacking Lerp {config.attackingFacingLerpTime}");
                 lerpTime = config.attackingFacingLerpTime;
@@ -166,63 +167,67 @@ namespace GGJ2024
 
         public void SetInvincible()
         {
-            _state = PlayerState.Invincible;
+            State = PlayerState.Invincible;
             _rb2D.velocity = Vector2.zero;
             _rb2D.angularVelocity = 0;
             Color origin = _body.color;
             Color newColor = origin;
             newColor.a = 0.5f;
-            
+
             _body.color = newColor;
             _eyeVisual.color = newColor;
             _noseVisual.color = newColor;
-            
+
             // todo 闪烁以表示无敌
+            float curTimer = 0;
+            float interval = config.flashInterval;
             Timer.Register(config.invincibleTime, () =>
             {
-                _state = PlayerState.Normal;
+                State = PlayerState.Normal;
                 _body.color = origin;
                 _eyeVisual.color = origin;
                 _noseVisual.color = origin;
-                
             }, onUpdate: f =>
             {
-                // Debug.Log(f);
                 // 每 0.2f 秒闪烁一次
-                if (f % GameManager.Singleton.config.flickerInterval < 0.1f)
-                {
-                    _body.color = origin;
-                    _eyeVisual.color = origin;
-                    _noseVisual.color = origin;
-                    // Debug.Log(origin);
-                }
-                else
+                curTimer += config.invincibleTime - f;
+                if (!(curTimer > interval)) return;
+                curTimer = 0;
+                if (_body.color == origin)
                 {
                     _body.color = newColor;
                     _eyeVisual.color = newColor;
                     _noseVisual.color = newColor;
-                    // Debug.Log(newColor);
                 }
+                else
+                {
+                    _body.color = origin;
+                    _eyeVisual.color = origin;
+                    _noseVisual.color = origin;
+                }
+
             });
         }
 
         public void Attack()
         {
-            _state = PlayerState.Attacking;
+            State = PlayerState.Attacking;
             _nose.StartAttack(config.noseOutSpeed, config.noseInSpeed, config.maxNoseLength, () =>
             {
-                _state = PlayerState.Normal;
+                State = PlayerState.Normal;
                 _nose.CancelAttack();
             });
         }
 
         public void OnBeNoseAttack(Vector2 force, Vector3 pos)
         {
-            GameObject effectGo = GameObject.Instantiate(GameManager.Singleton.globalConfig.bodyHitEffectPrefab, pos, Quaternion.identity);
+            GameObject effectGo = GameObject.Instantiate(GameManager.Singleton.globalConfig.bodyHitEffectPrefab, pos,
+                Quaternion.identity);
             effectGo.GetComponent<HitEffect>().SetLifeTime(GameManager.Singleton.config.bodyHitEffectLifeTime);
 
-            AudioManager.Singleton.Play(GameManager.Singleton.globalConfig.playerBeHitClip, transform.position, transform.rotation);
-            
+            AudioManager.Singleton.Play(GameManager.Singleton.globalConfig.playerBeHitClip, transform.position,
+                transform.rotation);
+
             // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
             // Debug.Log($"{playerEnum}:NoseAttack , force:{force}");
             _rb2D.AddForce(force, ForceMode2D.Impulse);

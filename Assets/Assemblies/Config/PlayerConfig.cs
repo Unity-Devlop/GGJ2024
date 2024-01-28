@@ -11,7 +11,7 @@ namespace GGJ2024
 
         public int health = 3;
         public float invincibleTime = 2f; // 无敌时间
-        
+
         public float maxVelocityX = 10f; // 最大速度X
         public float maxVelocityY = 10f; // 最大速度Y
 
@@ -20,9 +20,8 @@ namespace GGJ2024
         public float maxNoseLength = 3f; // 鼻子最大长度
         public float noseForce = 10f; // 鼻子攻击时的力
         
-        public float friction = 0.1f; // 刚体材质 摩擦力
-        public float bounce = 0.1f; // 刚体材质 弹力
-        
+
         public float reSpawnTime = 1f; // 重生时间
+        public float flashInterval = 0.2f;
     }
 }

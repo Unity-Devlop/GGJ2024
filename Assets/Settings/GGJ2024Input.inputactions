@@ -182,6 +182,17 @@
                     "action": "Nose",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dbd22773-056c-49de-94d9-5cedd9351ef3",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Nose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
